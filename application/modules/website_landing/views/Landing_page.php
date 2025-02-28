@@ -190,6 +190,7 @@
     .item {
         text-align: center;
         padding: 20px;
+        position: relative;
     }
 
     .item img {
@@ -1916,36 +1917,36 @@
     }
 
     .user_list {
-        position:absolute;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            margin-top: 10px;
-            display: none;
-            top:16%;
-            left:82%;
-            z-index:20;
-            align-items:center;
-            text-align:center;
-        }
+        position: absolute;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        margin-top: 10px;
+        display: none;
+        top: 16%;
+        left: 82%;
+        z-index: 20;
+        align-items: center;
+        text-align: center;
+    }
 
-        .user_list p {
-            margin: 15px 0;
-            
-        }
+    .user_list p {
+        margin: 15px 0;
 
-        .user_list a {
-            text-decoration: none;
-            color:black; 
-            font-size:18px ;
-        }
+    }
 
-        .user_list a:hover {
-            text-decoration: underline;
-            color:#80B500;
-            
-        }
+    .user_list a {
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+    }
+
+    .user_list a:hover {
+        text-decoration: underline;
+        color: #80B500;
+
+    }
 
     .account {
         display: flex;
@@ -1956,17 +1957,63 @@
         padding: 20px;
 
     }
-    #toggleUser:hover .user_f_l{ 
-         color:white;
-    }
-    .username{
 
+    #toggleUser:hover .user_f_l {
+        color: white;
+    }
+
+    .username {}
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .add_btn_cart {
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .red,
+    .inc i {
+        font-size: 20px;
+    }
+
+    .count_btn_alter b {
+        font-size: 18px;
+        /* transform:translateY(30%); */
+    }
+
+    @keyframes slideDown {
+        0% {
+            transform: translateY(-50%);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .count_btn_alter {
+        position: relative;
+        animation: slideDown 0.3s ease;
+    }
+
+    .count_btn {
+        transition: 0.5s ease;
     }
     </style>
 </head>
 
 <body>
-<?php if(!empty($this->session->userdata("web_user_name"))) { 
+
+    <?php if(!empty($this->session->userdata("web_user_name"))) { 
      $username =  $this->session->userdata("web_user_name");
      $user_f_l = substr($username, 0, 1);
  } ?>
@@ -2039,7 +2086,7 @@
                             <i class="fa-solid fa-xmark icon d-none" id="search-icon"></i>
                         </a>
                     </li>
-             
+
                     <div class="user_list" id="user_list">
                         <h5 class="username badge bg-danger"><b>Hi <?php echo $username ?></b></h5>
                         <p><a href="<?php echo base_url('login_website') ?>">Login</a></p>
@@ -2047,13 +2094,13 @@
                         <p><a href="<?php echo base_url('logout') ?>">logout</a></p>
                     </div>
                     <li class="icon-container" id="toggleUser">
-                        <a href="#" class="d-flex justify-content-center align-items-center" >
+                        <a href="#" class="d-flex justify-content-center align-items-center">
                             <?php if(empty($this->session->userdata("web_user_name"))) { ?>
-                                 <i class="fa-regular fa-user icon"></i>
-                          <?php  } else { ?>
-                           <h3 class="mt-2 user_f_l"><?php  echo $user_f_l ?></h3> 
+                            <i class="fa-regular fa-user icon"></i>
+                            <?php  } else { ?>
+                            <h3 class="mt-2 user_f_l"><?php  echo $user_f_l ?></h3>
                             <?php  }  ?>
-                        
+
                         </a>
                     </li>
 
@@ -2194,7 +2241,16 @@
                                         <b><?php echo ($foods_and_drink[$i]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($foods_and_drink[$i]['p_others']); ?></b></p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+
+                                    <div class="add_btn_cart btn"
+                                        id="add_btn_<?php echo ($foods_and_drink[$i]['p_id']); ?>">
+
+                                        <button class="count_btn btn btn-primary"
+                                            id="count_<?php echo ($foods_and_drink[$i]['p_id']); ?>"
+                                            data-id="<?php echo ($foods_and_drink[$i]['p_id']); ?>">Add</button>
+
+                                    </div>
+
                                 </div>
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
@@ -2227,7 +2283,14 @@
                                     </p>
                                     <p class="card-text"><b><?php echo ($foods_and_drink[$i + 1]['p_others']); ?></b>
                                     </p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <div class="add_btn_cart btn"
+                                        id="add_btn_<?php echo ($foods_and_drink[$i + 1]['p_id']); ?>">
+
+                                        <button class="count_btn btn btn-primary"
+                                            id="count_<?php echo ($foods_and_drink[$i + 1]['p_id']); ?>"
+                                            data-id="<?php echo ($foods_and_drink[$i + 1]['p_id']); ?>">Add</button>
+
+                                    </div>
                                 </div>
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
@@ -2240,13 +2303,13 @@
                                     <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                             data-bs-toggle="modal"
                                             data-id="<?php echo $foods_and_drink[$i + 1]['p_id']; ?>">
-                                            <i class="fa-regular fa-heart"></i></button></div>
+                                            <i class="fa-regular fa-heart"></i></button>
+                                    </div>
                                 </div>
                             </div>
                             <?php } ?>
 
                         </div>
-
                         <?php } ?>
 
                     </div>
@@ -2274,7 +2337,12 @@
                                     <b><?php echo ($item['p_price']); ?></b>
                                 </p>
                                 <p class="card-text"><b><?php echo ($item['p_others']); ?></b></p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <div class="add_btn_cart btn" id="add_btn_<?php echo ($item['p_id']); ?>">
+
+                                    <button class="count_btn btn btn-primary" id="count_<?php echo ($item['p_id']); ?>"
+                                        data-id="<?php echo ($item['p_id']); ?>">Add</button>
+
+                                </div>
                             </div>
                             <div class="icon" id="our_product_icons">
                                 <div id="view_icon" class="p_icon"><button type="button"
@@ -2314,7 +2382,13 @@
                                         <b><?php echo ($vegetable[$i]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($vegetable[$i]['p_others']); ?></b></p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <div class="add_btn_cart btn" id="add_btn_<?php echo ($vegetable[$i]['p_id']); ?>">
+
+                                        <button class="count_btn btn btn-primary"
+                                            id="count_<?php echo ($vegetable[$i]['p_id']); ?>"
+                                            data-id="<?php echo ($vegetable[$i]['p_id']); ?>">Add</button>
+
+                                    </div>
                                 </div>
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
@@ -2332,6 +2406,7 @@
                             </div>
                             <?php } ?>
 
+
                             <?php
                     if (isset($vegetable[$i + 1])) {
                         $image_path = 'assets/images/' . $vegetable[$i + 1]['p_image']; ?>
@@ -2345,7 +2420,14 @@
                                         <b><?php echo ($vegetable[$i + 1]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($vegetable[$i + 1]['p_others']); ?></b></p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <div class="add_btn_cart btn"
+                                        id="add_btn_<?php echo ($vegetable[$i + 1]['p_id']); ?>">
+
+                                        <button class="count_btn btn btn-primary"
+                                            id="count_<?php echo ($vegetable[$i + 1]['p_id']); ?>"
+                                            data-id="<?php echo ($vegetable[$i + 1]['p_id']); ?>">Add</button>
+
+                                    </div>
                                 </div>
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
@@ -2391,7 +2473,12 @@
                                     <b><?php echo $item['p_price']; ?></b>
                                 </p>
                                 <p class="card-text"><b><?php echo $item['p_others']; ?></b></p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <div class="add_btn_cart btn" id="add_btn_<?php echo ($item['p_id']); ?>">
+
+                                    <button class="count_btn btn btn-primary" id="count_<?php echo ($item['p_id']); ?>"
+                                        data-id="<?php echo ($item['p_id']); ?>">Add</button>
+
+                                </div>
                             </div>
                             <div class="icon" id="our_product_icons">
                                 <div id="view_icon" class="p_icon"><button type="button"
@@ -2431,7 +2518,14 @@
                                         <b><?php echo ($fruit[$i]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($fruit[$i]['p_others']); ?></b></p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+
+                                    <div class="add_btn_cart btn" id="add_btn_<?php echo ($fruit[$i]['p_id']); ?>">
+
+                                        <button class="count_btn btn btn-primary"
+                                            id="count_<?php echo ($fruit[$i]['p_id']); ?>"
+                                            data-id="<?php echo ($fruit[$i]['p_id']); ?>">Add</button>
+                                    </div>
+
                                 </div>
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
@@ -2462,7 +2556,12 @@
                                         <b><?php echo ($fruit[$i + 1]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($fruit[$i + 1]['p_others']); ?></b></p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <div class="add_btn_cart btn" id="add_btn_<?php echo ($fruit[$i + 1]['p_id']); ?>">
+
+                                        <button class="count_btn btn btn-primary"
+                                            id="count_<?php echo ($fruit[$i + 1]['p_id']); ?>"
+                                            data-id="<?php echo ($fruit[$i + 1]['p_id']); ?>">Add</button>
+                                    </div>
                                 </div>
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
@@ -2506,7 +2605,12 @@
                                     <b><?php echo ($item['p_price']); ?></b>
                                 </p>
                                 <p class="card-text"><b><?php echo ($item['p_others']); ?></b></p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <div class="add_btn_cart btn" id="add_btn_<?php echo ($item['p_id']); ?>">
+
+                                    <button class="count_btn btn btn-primary" id="count_<?php echo ($item['p_id']); ?>"
+                                        data-id="<?php echo ($item['p_id']); ?>">Add</button>
+
+                                </div>
                             </div>
                             <div class="icon" id="our_product_icons">
                                 <div id="view_icon" class="p_icon"><button type="button"
@@ -2547,7 +2651,13 @@
                                         <b><?php echo ($bread_and_cake[$i]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($bread_and_cake[$i]['p_others']); ?></b></p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <div class="add_btn_cart btn"
+                                        id="add_btn_<?php echo ($bread_and_cake[$i]['p_id']); ?>">
+
+                                        <button class="count_btn btn btn-primary"
+                                            id="count_<?php echo ($bread_and_cake[$i]['p_id']); ?>"
+                                            data-id="<?php echo ($bread_and_cake[$i]['p_id']); ?>">Add</button>
+                                    </div>
                                 </div>
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
@@ -2579,7 +2689,13 @@
                                         <b><?php echo ($bread_and_cake[$i + 1]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($bread_and_cake[$i + 1]['p_others']); ?></b></p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <div class="add_btn_cart btn"
+                                        id="add_btn_<?php echo ($bread_and_cake[$i + 1]['p_id']); ?>">
+
+                                        <button class="count_btn btn btn-primary"
+                                            id="count_<?php echo ($bread_and_cake[$i + 1]['p_id']); ?>"
+                                            data-id="<?php echo ($bread_and_cake[$i + 1]['p_id']); ?>">Add</button>
+                                    </div>
                                 </div>
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
@@ -2624,7 +2740,11 @@
                                     <b><?php echo ($item['p_price']); ?></b>
                                 </p>
                                 <p class="card-text"><b><?php echo ($item['p_others']); ?></b></p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <div class="add_btn_cart btn" id="add_btn_<?php echo ($item['p_id']); ?>">
+
+                                    <button class="count_btn btn btn-primary" id="count_<?php echo ($item['p_id']); ?>"
+                                        data-id="<?php echo ($item['p_id']); ?>">Add</button>
+                                </div>
                             </div>
                             <div class="icon" id="our_product_icons">
                                 <div id="view_icon" class="p_icon"><button type="button"
@@ -2665,7 +2785,13 @@
                                         <b><?php echo ($fish_and_meat[$i]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($fish_and_meat[$i]['p_others']); ?></b></p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <div class="add_btn_cart btn"
+                                        id="add_btn_<?php echo ($fish_and_meat[$i]['p_id']); ?>">
+
+                                        <button class="count_btn btn btn-primary"
+                                            id="count_<?php echo ($fish_and_meat[$i]['p_id']); ?>"
+                                            data-id="<?php echo ($fish_and_meat[$i]['p_id']); ?>">Add</button>
+                                    </div>
                                 </div>
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
@@ -2696,7 +2822,13 @@
                                         <b><?php echo ($fish_and_meat[$i + 1]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($fish_and_meat[$i + 1]['p_others']); ?></b></p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <div class="add_btn_cart btn"
+                                        id="add_btn_<?php echo ($fish_and_meat[$i + 1]['p_id']); ?>">
+
+                                        <button class="count_btn btn btn-primary"
+                                            id="count_<?php echo ($fish_and_meat[$i + 1]['p_id']); ?>"
+                                            data-id="<?php echo ($fish_and_meat[$i + 1]['p_id']); ?>">Add</button>
+                                    </div>
                                 </div>
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
@@ -2741,7 +2873,11 @@
                                     <b><?php echo ($item['p_price']); ?></b>
                                 </p>
                                 <p class="card-text"><b><?php echo ($item['p_others']); ?></b></p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <div class="add_btn_cart btn" id="add_btn_<?php echo ($item['p_id']); ?>">
+
+                                    <button class="count_btn btn btn-primary" id="count_<?php echo ($item['p_id']); ?>"
+                                        data-id="<?php echo ($item['p_id']); ?>">Add</button>
+                                </div>
                             </div>
                             <div class="icon" id="our_product_icons">
                                 <div id="view_icon" class="p_icon"><button type="button"
@@ -3323,19 +3459,19 @@
 
             $(".our_product_next_btn").click(function() {
                 foodowl.trigger('next.owl.carousel');
-                console.log("Next button clicked");
+
             });
 
 
             $(".our_product_prev_btn").click(function() {
                 foodowl.trigger('prev.owl.carousel');
-                console.log("Previous button clicked");
+
             });
             </script>
 
             <script>
             var vegetableOwl = $('#vegetable').owlCarousel({
-                loop: true,
+                // loop: true,
                 margin: 10,
                 autoplay: true,
                 // nav: true,
@@ -3352,21 +3488,30 @@
                 }
             });
 
+            $('#vegetable').on('mouseenter', function() {
+                vegetableOwl.trigger('stop.owl.autoplay');
+            });
+
+
+            $('#vegetable').on('mouseleave', function() {
+                vegetableOwl.trigger('play.owl.autoplay');
+            });
+
             $(".vegetable_next_btn").click(function() {
                 vegetableOwl.trigger('next.owl.carousel');
-                console.log("Next button clicked");
+
             });
 
 
             $(".vegetable_prev_btn").click(function() {
                 vegetableOwl.trigger('prev.owl.carousel');
-                console.log("Previous button clicked");
+
             });
             </script>
 
             <script>
             var fruitowl = $('#fruit').owlCarousel({
-                loop: true,
+                // loop: true,
                 margin: 10,
                 autoplay: true,
                 // nav: true,
@@ -3385,19 +3530,19 @@
 
             $(".fruit_next_btn").click(function() {
                 fruitowl.trigger('next.owl.carousel');
-                console.log("Next button clicked");
+
             });
 
 
             $(".fruit_prev_btn").click(function() {
                 fruitowl.trigger('prev.owl.carousel');
-                console.log("Previous button clicked");
+
             });
             </script>
 
             <script>
             var breadowl = $('#bread').owlCarousel({
-                loop: true,
+                // loop: true,
                 margin: 10,
                 autoplay: true,
                 // nav: true,
@@ -3416,19 +3561,19 @@
 
             $(".bread_next_btn").click(function() {
                 breadowl.trigger('next.owl.carousel');
-                console.log("Next button clicked");
+
             });
 
 
             $(".bread_prev_btn").click(function() {
                 breadowl.trigger('prev.owl.carousel');
-                console.log("Previous button clicked");
+
             });
             </script>
 
             <script>
             var meatowl = $('#meat').owlCarousel({
-                loop: true,
+                // loop: true,
                 margin: 10,
                 autoplay: true,
                 // nav: true,
@@ -3447,13 +3592,13 @@
 
             $(".meat_next_btn").click(function() {
                 meatowl.trigger('next.owl.carousel');
-                console.log("Next button clicked");
+
             });
 
 
             $(".meat_prev_btn").click(function() {
                 meatowl.trigger('prev.owl.carousel');
-                console.log("Previous button clicked");
+
             });
             </script>
 
@@ -3642,7 +3787,6 @@
                     },
                     dataType: "json",
                     success: function(response) {
-                        // console.log(response);
                         if (response.status === 1) {
                             updateCartModal(response.whis);
                             updateCart();
@@ -3711,6 +3855,7 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
+
                         $('.cart_body').empty();
 
                         if (data.cartlist.length === 0) {
@@ -3723,7 +3868,25 @@
                         }
 
                         $.each(data.cartlist, function(index, cart) {
-                            $('.cart_body').append(`
+                            if (cart.ct_quantity == 1) {
+                                $('.cart_body').append(`
+                        <div class="d-flex mt-4">
+                            <p id="cart_body_icon" onclick="delete_cart(${cart.ct_id})"><i class="fa-solid fa-x"></i></p>
+                            <img src="assets/images/${cart.ct_image}" style="width:120px; height:100px;" alt="${cart.ct_name}">
+                            <div>
+                                <input value="${cart.ct_id}" name="wl_id[]" class="wl_ids" hidden>
+                                <p>${cart.ct_name}</p>
+                                <p><i class="fa-solid fa-indian-rupee-sign"></i>${cart.ct_price}</p>
+                                <p>
+                                    <button class="reduce btn" onclick="reducefunction(${cart.ct_id})"><i class="fa-solid fa-trash"></i></button> 
+                                    ${cart.ct_quantity} 
+                                    <button class="increase btn" onclick="increasefunction(${cart.ct_id})"><i class="fa-solid fa-plus"></i></button> 
+                                </p>
+                            </div>
+                        </div>
+                    `);
+                            } else {
+                                $('.cart_body').append(`
                         <div class="d-flex mt-4">
                             <p id="cart_body_icon" onclick="delete_cart(${cart.ct_id})"><i class="fa-solid fa-x"></i></p>
                             <img src="assets/images/${cart.ct_image}" style="width:120px; height:100px;" alt="${cart.ct_name}">
@@ -3739,11 +3902,63 @@
                             </div>
                         </div>
                     `);
+                            }
+
+                            $('.cartlist_count b').text(data.count);
+
+                            if (cart.ct_id) {
+                                if (cart.ct_quantity == 1) {
+
+                                    const buttonContainer = $('#add_btn_' + cart.ct_id);
+                                    buttonContainer.empty();
+                                    buttonContainer.css('border', '2px solid green');
+                                    buttonContainer.css('display', 'flex');
+                                    buttonContainer.css('justify-content', 'space-between');
+                                    // $('#quant-' + cart.ct_id).addClass('count_btn_alter');
+                                    // $('#quant-' + cart.ct_id).removeClass('count_btn');
+
+
+                                    buttonContainer.append(`
+                <button class="red btn"  onclick="reduce_function_alter(${cart.ct_id})"> 
+                                        <i class="fa-solid fa-trash"></i>      
+                                </button>
+                             <h1 class="count_btn_alter btn mt-2" id="quant-${cart.ct_id}"><b>${cart.ct_quantity}</b></h1>
+                          
+                                <button class="inc btn"  onclick="increase_function_alter(${cart.ct_id})"> 
+                                        <i class="fa-solid fa-plus"></i>      
+                                </button>
+                            
+                               `);
+                                } else {
+                                    const buttonContainer = $('#add_btn_' + cart.ct_id);
+                                    buttonContainer.empty();
+                                    buttonContainer.css('border', '2px solid green');
+                                    buttonContainer.css('display', 'flex');
+                                    buttonContainer.css('justify-content',
+                                        'space-between');
+
+                                    $('#add_btn_' + cart.ct_id).append(`
+                <button class="red btn"  onclick="reduce_function_alter(${cart.ct_id})"> 
+                               <i class="fa-solid fa-minus"></i>      
+                                </button>   
+                             <h1 class="count_btn_alter btn mt-2"><b>${cart.ct_quantity}</b></h1>
+                          
+                                <button class="inc btn"  onclick="increase_function_alter(${cart.ct_id})"> 
+                                        <i class="fa-solid fa-plus"></i>      
+                                </button>
+                            
+                               `);
+
+                                }
+                            }
+
+
                         });
+
 
                         $('.sub_total p:last').html(
                             `<i class="fa-solid fa-indian-rupee-sign"></i>${data.subtotal}`);
-                        $('.cartlist_count b').text(data.count);
+
                     },
                     error: function(xhr, status, error) {
                         console.error('AJAX Error:', status, error);
@@ -3751,7 +3966,10 @@
                 });
             }
 
+
+
             function reducefunction(ct_id) {
+
                 $.ajax({
                     type: "post",
                     url: "<?php echo base_url('reduce_product_count');?>",
@@ -3765,7 +3983,21 @@
                                 updateCart();
 
                             } else {
+                                $('#add_btn_' + response.ct_id).empty();
+                                $('#add_btn_' + response.ct_id).css('border', 'none');
+                                $('#add_btn_' + response.ct_id).css('display', 'flex');
+                                $('#add_btn_' + response.ct_id).css('flex-direction', 'row');
+                                $('#add_btn_' + response.ct_id).css('justify-content', 'center');
+                                $('#count_' + response.details.p_id).css('display', 'flex');
+
+                                $('#add_btn_' + response.ct_id).append(`
+         <button class="count_btn btn btn-primary" id="count_${response.details.p_id}"  onclick="mybtn(${response.details.p_id})">Add</button>
+                            
+                               `);
                                 delete_cart(response.ct_id);
+                                if (response.item) {
+                                    $('.cartlist_count b').text('0');
+                                }
 
 
                             }
@@ -3835,10 +4067,9 @@
                     },
                     dataType: "json",
                     success: function(response) {
-                        // console.log(response.details);
-                        // console.log(response.cart);
                         if (response.status == 1) {
                             updateCart();
+                            console.log(response.ct_quantity);
 
                         }
                     }
@@ -3847,7 +4078,76 @@
             </script>
 
             <script>
+            function increase_function_alter(ct_id) {
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url("increase_product_count") ?>",
+                    data: {
+                        ct_id: ct_id
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 1) {
+                            updateCart();
+                            console.log(response.ct_quantity);
+
+                        }
+                    }
+                });
+            }
+
+            function reduce_function_alter(ct_id) {
+
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url('reduce_product_count');?>",
+                    data: {
+                        ct_id: ct_id
+                    },
+                    success: function(response) {
+                        if (response.status === 1) {
+
+                            if (response.ct_quantity !== 0 && response.ct_quantity !== null) {
+                                updateCart();
+
+                            } else {
+
+                                $('#add_btn_' + response.ct_id).empty();
+                                $('#add_btn_' + response.ct_id).css('border', 'none');
+                                $('#add_btn_' + response.ct_id).css('display', 'flex');
+                                $('#add_btn_' + response.ct_id).css('flex-direction', 'row');
+                                $('#add_btn_' + response.ct_id).css('justify-content', 'center');
+                                $('#count_' + response.details.p_id).css('display', 'flex');
+
+                                $('#add_btn_' + response.ct_id).append(`
+         <button class="count_btn btn btn-primary" id="count_${response.details.p_id}"  onclick="mybtn(${response.details.p_id})">Add</button>
+                            
+                               `);
+                                updateCart();
+
+                                delete_cart(response.ct_id);
+                                if (response.item) {
+                                    $('.cartlist_count b').text('0');
+                                }
+
+                            }
+                        } else {
+                            console.error("Error: Could not reduce product count. Status: " + response
+                                .status);
+                            alert("Error: Could not reduce product count.");
+                        }
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error: ", status, error);
+                    }
+                });
+            }
+            </script>
+
+            <script>
             function delete_cart(ct_id) {
+                var ct = "id";
                 $.ajax({
                     type: "post",
                     url: "<?php echo base_url("delete_cart_item") ?>",
@@ -3855,9 +4155,9 @@
                         ct_id: ct_id
                     },
                     success: function(response) {
-                        if (response == 1) {
-                            updateCart();
 
+                        if (response.status == 1) {
+                            updateCart();
                         }
                     }
                 });
@@ -3875,6 +4175,7 @@
                     dataType: "json",
 
                     success: function(response) {
+
                         if (response.status === 1 || response.status === 2) {
                             updateViewModal(response.details, response.cart, response.quantity);
                             updateCart();
@@ -3883,6 +4184,21 @@
                     },
                     error: function(xhr, status, error) {
                         console.error("AJAX Error: ", status, error);
+                    }
+                });
+            }
+            </script>
+            <script>
+            function itemtocart(cart_id) {
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url('add_to_cart') ?>",
+                    data: {
+                        cart_id: cart_id
+                    },
+                    dataType: "json",
+                    success: function(response) {
+
                     }
                 });
             }
@@ -3917,7 +4233,7 @@
 
             });
 
-            function updateViewModal(viewData, cart, quant) {
+            function updateViewModal(viewData, cart) {
                 if (!viewData || typeof viewData !== 'object') {
                     console.error("Invalid viewData: ", viewData);
                     return;
@@ -3937,28 +4253,7 @@
                 <div class="col-md-6">
                     <p><strong>${viewData.p_name}</strong></p>
                     <p><strong><i class="fa-solid fa-indian-rupee-sign"></i> ${viewData.p_price}</strong></p>
-                        <?php if($this->session->userdata('web_user_ref_id') != '') {?>
-                    <div class="item_quantity">
-                        <div class="inner_quantity">
-                            <button class="reduce btn" onclick="reduceviewfunction(${cartId})">
-                                <i class="fa-solid fa-minus"></i>
-                            </button>
-                        </div>
-                        <div class="mt-2">
-    <p><b>${cartId === null ? '0' : (quantity === 1 ? '1' : (quantity >= 2 ? cart.ct_quantity + 1 : cart.ct_quantity ))}</b></p>
-                        </div>  
-                        <div class="inner_quantity">        
-                            ${quantity === 0 
-                                ? `<button class="add btn" onclick="add_to_cart(${viewData.p_id})">
-                                    <i class="fa-solid fa-plus"></i>
-                                   </button>`
-                                : `<button class="add btn" onclick="add_to_cart(${cartId})">
-                                    <i class="fa-solid fa-plus"></i>
-                                   </button>`
-                            }
-                        </div>
-                    </div>
-                        <?php } ?>
+                
                     <div style="display:flex;justify-content:center;flex-direction:column">
                        <a href="<?php echo base_url('view_cart_page') ?>"> <button class="cart_btn btn"
                                 id="explore_btn"><span><b>View Cart</b></span></button></a>
@@ -4301,20 +4596,65 @@
             });
             </script>
             <script>
-  $(document).ready(function() {
-        $('#toggleUser ').on('click', function(event) {
-            event.preventDefault(); 
-            $('#user_list').toggle();
-        });
+            $(document).ready(function() {
+                $('#toggleUser ').on('click', function(event) {
+                    event.preventDefault();
+                    $('#user_list').toggle();
+                });
 
-        $(document).on('click', function(event) {
-            if (!$(event.target).closest('#toggleUser ').length) {
-                $('#user_list').hide(); 
+                $(document).on('click', function(event) {
+                    if (!$(event.target).closest('#toggleUser ').length) {
+                        $('#user_list').hide();
+                    }
+                });
+            });
+            </script>
+            <script>
+            $('.count_btn').on('click', function() {
+                var id = $(this).data('id');
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url('get_cart_detail')?>",
+                    data: {
+                        id: id
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 1) {
+                            updateCart();
+
+                        }
+                    }
+                });
+
+
+
+            });
+            </script>
+
+            <script>
+            function mybtn(id) {
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url('get_cart_detail')?>",
+                    data: {
+                        id: id
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 1) {
+                            updateCart();
+                            $('.model-content .add_btn_cart').empty();
+
+
+                        }
+                    }
+                });
+
             }
-        });
-    });
-    
-</script>
+            </script>
+
+
 </body>
 
 </html>

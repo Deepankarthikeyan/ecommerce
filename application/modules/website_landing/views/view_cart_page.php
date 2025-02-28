@@ -399,7 +399,7 @@
     }
     }
 
-    .cart_empty{
+    .cart_empty_img{
         display: flex;
         flex-direction:column;
         justify-content: center;
@@ -410,16 +410,16 @@
         margin-top:50px;
     }
 
-    .cart_empty img {
+    .cart_empty_img img {
         max-width: 100%;
         height: auto;
     }
-.container h3{ 
+#cart_empty_text{ 
     font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
-.container p{ 
+#cart_text_empty { 
     font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -489,8 +489,8 @@
             </div>
             <?php } ?>
             <?php } else { ?>
-            <div class="text-center cart_empty">
-                <img src="assets/images/cart_empty.png" class="card-img-top img-fluid" alt="No Data Image">
+            <div class="text-center cart_empty_img">
+                <img src="assets/images/cart_empty_img.png" class="card-img-top img-fluid" alt="No Data Image">
             </div>
             <?php } ?>
         </div>
@@ -718,10 +718,10 @@ function updateCart() {
              } else {
                 $('.container').empty();
                           $('.container').append(`
-                    <div class="text-center cart_empty">
+                    <div class="text-center cart_empty_img">
                 <img src="assets/images/cart_empty.png" class="card-img-top img-fluid" alt="No Data Image">
-            <h3><b>Your cart is empty</b></h3>
-            <p>You can go to home page to view more items</p>
+            <h3 id="cart_empty_text"><b>Your cart is empty</b></h3>
+            <p id="cart_text_empty">You can go to home page to view more items</p>
             </div>
             `);
        

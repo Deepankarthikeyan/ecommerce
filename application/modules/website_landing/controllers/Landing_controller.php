@@ -67,6 +67,7 @@ class Landing_controller extends MY_Controller {
 	
 
 		$cart_id = $our_product['p_id'];
+	
 
 		$data = array(
 			'web_user_id' => $userid,
@@ -80,6 +81,9 @@ class Landing_controller extends MY_Controller {
 
 		$existing_item = $this->website_model->get_cart_item_by_id($cart_id);
 		
+		$item_details = $this->website_model->get_product_details($cart_id);
+		
+		
 		if ($existing_item) {
 
 			$new_quantity = $existing_item['ct_quantity'] + 1;
@@ -89,7 +93,10 @@ class Landing_controller extends MY_Controller {
 			$update = $this->website_model->update_cart_item($cart_id, $update_data);
 			
 			if ($update) {
+				$update_item = $this->website_model->get_cart_item_by_id($cart_id);
 				$response['status'] = 1; 
+				$response['cart'] = $update_item;
+				$response['prod'] = $item_details;
 			} else {
 				$response['status'] = 2;
 			}
@@ -98,7 +105,12 @@ class Landing_controller extends MY_Controller {
 			$insert = $this->website_model->insert_cart_items($data);
 			
 			if ($insert) {
+				$insert_item = $this->website_model->get_cart_item_by_id($cart_id);
+			
 				$response['status'] = 1; 
+				$response['cart'] = $insert_item;
+				$response['prod'] = $item_details;
+	
 			} else {
 				$response['status'] = 2; 
 			}
@@ -200,11 +212,16 @@ class Landing_controller extends MY_Controller {
 		if($item){
 			$delete = $this->website_model->delete_cart_item($cart_id);
 			if($delete){
-				echo 1;
+
+				$response['status'] = 1;
+				
 			}
 			else {
-				echo 2;
+				$response['status'] = 2;
+
 			}
+			header('Content-Type: application/json');
+			echo json_encode($response);
 		}
 	}
 
