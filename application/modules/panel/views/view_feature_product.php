@@ -125,7 +125,20 @@ function previewImage(event) {
     }
 }
 </script>
-
+<script>
+    function previewImage(event){
+        const file = event.target.files[0];
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgElement = document.getElementById('productImage');
+                imgElement.src = e.target.result;
+                imgElement.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
 <script>
     $(document).ready(function () {
         $('#product_form').on('submit', function(event) {
@@ -146,7 +159,7 @@ function previewImage(event) {
                             $('#err_div').addClass('d-none');
                         }, 3000);
                     }
-                    else if(response == 2){
+                    else if(response == 2){ 
                         $('#succ_div').removeClass('d-none');
                         $('#succ_txt').text('Feature product Updated successfully');
                         setTimeout(() => {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,6 +28,7 @@
             margin-left:50px;
         }
     }
+    
     @media (max-width:460px){
         .product{
             width:80%;
@@ -41,10 +43,10 @@
         <div class="product">     
 
             <h2 class="text-center">OUR PRODUCT</h2>
-        <div class="alert alert-success d-none" id="succ_div"> 
+        <div class="d-none alert alert-success" id="succ_div"> 
              <h3 id="succ_txt" class="text-center"></h3>
               </div>
-              <div class="alert alert-danger d-none" id="err_div"> 
+              <div class="d-none alert alert-danger" id="err_div"> 
              <h3 id="err_txt" class="text-center"></h3>
               </div>
             <form action="<?php echo base_url('our_product') ?>" id="product_form" method="post" enctype="multipart/form-data">

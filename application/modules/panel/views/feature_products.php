@@ -101,6 +101,12 @@
                         setTimeout(() => {
                             $('#err_div').addClass('d-none');
                         }, 3000);
+                    } else if(response == 5){
+                        $('#err_div').removeClass('d-none');
+                        $('#err_txt').text('Please Upload image');
+                        setTimeout(() => {
+                            $('#err_div').addClass('d-none');
+                        }, 3000);
                     }
                     else {
                         $('#err_div').removeClass('d-none');

@@ -274,5 +274,27 @@ public function applied_coupon_list_id($userid){
     return $query->row_array();
 }
 
+public function get_coupon_by_name($cop){
+    $this->db->select('*');
+    $this->db->from('coupon_list');
+    $this->db->where('cp_name',$cop);
+    $query = $this->db->get();
+    return $query->row_array();
+}
+
+public function get_testimonial_datas(){
+    $this->db->select('*');
+    $this->db->from('testimonial_list');
+    $query = $this->db->get();
+    return $query->result_array();
+}
+
+public function insert_product_viewed_user_data($data){
+   return $this->db->insert('product_viewed_list',$data);
+}
+public function insert_product_cart_user_data($insert_data){
+   return $this->db->insert('product_add_cart_list',$insert_data);
+}
+
 
 }

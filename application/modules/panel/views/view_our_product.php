@@ -107,7 +107,8 @@
                                 class="card-img-top form-control" alt="Product Image"
                                 onclick="document.getElementById('imageUpload').click();" style="width:50%;">
                             <input type="file" id="imageUpload" name="p_image" accept="image/*"
-                                onchange="previewImage(event)" style="display: none;">
+                                onchange="previewImage(event)" >
+                            
                             <?php } ?>
                             <?php } else {?>
                                 <label for="p_image" class="form-label"><b>Product Image</b></label>
@@ -144,12 +145,12 @@
         }
     }
     </script>
-
     <script>
     $(document).ready(function() {
         $('#product_form').on('submit', function(event) {
             event.preventDefault();
             var formData = new FormData(this);
+
 
             $.ajax({
                 type: "POST",

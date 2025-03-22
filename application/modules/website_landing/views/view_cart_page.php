@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Cart Page</title>
+    <link rel="icon" href="<?php echo base_url('assets/images/leaf_logo.png') ?>" type="image/png"> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -24,8 +25,10 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
     <style>
     section {
@@ -241,7 +244,7 @@
         display: flex;
         justify-content: space-between;
         cursor: pointer;
-        width:135%;
+        width: 135%;
     }
 
     .content {
@@ -250,14 +253,14 @@
         transition: max-height 0.5s ease;
         width: 135%;
     }
-    
 
 
-.content ul li  {
 
-/* background-color:blue; */
+    .content ul li {
 
-}
+        /* background-color:blue; */
+
+    }
 
 
 
@@ -281,11 +284,12 @@
     .content::-webkit-scrollbar-thumb {
         height: 10px;
     }
+
     .content ul {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        padding:10px; 
+        padding: 10px;
 
     }
 
@@ -293,7 +297,7 @@
         border-bottom: 2px solid;
         margin: 0;
         padding: 0;
-        
+
     }
 
     .content.show {
@@ -307,7 +311,7 @@
     .content.show ul li {
         margin: 0;
         padding: 0 !important;
-    }   
+    }
 
     .arrow_up,
     .arrow_down {
@@ -384,56 +388,67 @@
         color: red;
         font: 16px 'Rajdhani-sans-serif';
     }
+
     @media (max-width:1075px) {
-        #contain{
+        #contain {
             display: block;
-    }
-    table{
-        display: flex;
-            flex-direction:column;
-            justify-content: center ;
-            width:400px;
-    }
-    .coups{
-        width:400px;
-    }
+        }
+
+        table {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 400px;
+        }
+
+        .coups {
+            width: 400px;
+        }
     }
 
-    .cart_empty_img{
+    .cart_empty_img {
         display: flex;
-        flex-direction:column;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 400px;
         width: 400px;
         margin: 0 auto;
-        margin-top:50px;
+        margin-top: 50px;
     }
 
     .cart_empty_img img {
         max-width: 100%;
         height: auto;
     }
-#cart_empty_text{ 
-    font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-#cart_text_empty { 
-    font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  color:grey;
-}
 
+    #cart_empty_text {
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
 
+    #cart_text_empty {
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        color: grey;
+    }
+
+    #err_div {
+        width: 135% !important;
+    }
+
+    #succ_div {
+        width: 135% !important;
+    }
     </style>
 </head>
 
 <body>
     <section>
         <div>
-            <p>// Welcome to Our Company</p>
+            <p>// Welcome to Our Cart Page</p>
             <h2>Cart</h2>
         </div>
         <nav aria-label="breadcrumb">
@@ -453,7 +468,7 @@
             <i class="fa-solid fa-magnifying-glass icon" id="search-icon"></i>
         </div>
         <?php } else { ?>
-         
+
         <?php } ?>
         <div class="containing">
             <?php if($cartlist != ''){ ?>
@@ -506,7 +521,7 @@
                     </div>
                     <div class="content">
                         <ul>
-                        
+
                             <?php if(!empty($apply)) { ?>
                             <?php foreach($apply as $app) { ?>
                             <li>
@@ -546,8 +561,15 @@
                     </div>
                 </div>
                 <div class="mt-5">
-                    <input type="text" class="coupon_input">
-                    <a style="border-bottom:none"><button class="cart_btn btn" id="explore_btn"><b><span>Apply
+                    <div class="alert alert-success d-none" id="succ_div">
+                        <p style="height:0px;" id="succ_txt"></p>
+                    </div>
+                    <div class="alert alert-danger d-none" id="err_div">
+                        <p style="height:0px" id="err_txt"></p>
+                    </div>
+                    <input type="text" class="coupon_input" name="coupon_input" id="coupon_input">
+                    <a style="border-bottom:none" id="app_coupon"><button class="cart_btn btn"
+                            id="explore_btn"><b><span>Apply
                                     Coupon</span></b></button></a>
                 </div>
             </div>
@@ -684,13 +706,13 @@ function updateCart() {
         dataType: 'json',
         success: function(data) {
             $('.containing').empty();
-            if(data.cartlist != ''){
+            if (data.cartlist != '') {
 
-            $.each(data.cartlist, function(index, cart) {
-                const image_path = 'assets/images/' + cart.ct_image;
-                const total_per_item = cart.ct_quantity * cart.ct_price;
+                $.each(data.cartlist, function(index, cart) {
+                    const image_path = 'assets/images/' + cart.ct_image;
+                    const total_per_item = cart.ct_quantity * cart.ct_price;
 
-                $('.containing').append(`
+                    $('.containing').append(`
                     <div class="cart-body" id="cart-item-${cart.ct_id}">
                         <p id="close_cart" onclick="delete_cart(${cart.ct_id})"><i class="fa-solid fa-x"></i></p>
                         <div class="cart-image">
@@ -714,35 +736,38 @@ function updateCart() {
 
                 `);
 
-            });
-             } else {
+                });
+            } else {
                 $('.container').empty();
-                          $('.container').append(`
+                $('.container').append(`
                     <div class="text-center cart_empty_img">
                 <img src="assets/images/cart_empty.png" class="card-img-top img-fluid" alt="No Data Image">
             <h3 id="cart_empty_text"><b>Your cart is empty</b></h3>
             <p id="cart_text_empty">You can go to home page to view more items</p>
             </div>
             `);
-       
-             }
+
+            }
             var subtotal = data.subtotal;
-            // console.log(data.coupon);
+
             data.coupon.forEach(coupon => {
                 const couponElement = document.getElementById(`apply-${coupon.cp_id}`);
                 if (subtotal > parseInt(coupon.cp_min_price)) {
-                    $('#apply-' + coupon.cp_id).html('apply');
+                    if(localStorage.getItem('couponApplied') === 'false'){
+                        $('#apply-' + coupon.cp_id).html('apply');
                     $('#apply-' + coupon.cp_id).css('color', 'black');
                     couponElement.classList.remove('disabled');
                     $(`#unlock_coupon-${coupon.cp_id}`).html('');
 
-                     couponElement.onclick = function() {
-                         apply(coupon.cp_id);
-                     };
+                    couponElement.onclick = function() {
+                        apply(coupon.cp_id);
+                    };
+                    }
+                 
                 } else {
                     $('#apply-' + coupon.cp_id).html('apply');
-                $('#apply-' + coupon.cp_id).css('color', 'grey');
-                // $('#apply-' + coupon.cp_id).off('click');
+                    $('#apply-' + coupon.cp_id).css('color', 'grey');
+                    // $('#apply-' + coupon.cp_id).off('click');
                     couponElement.classList.add('disabled');
                     couponElement.onclick = null;
                     var min = coupon.cp_min_price - subtotal;
@@ -946,8 +971,10 @@ function apply(cp_id) {
                 // console.log(localStorage.getItem('couponApplied'));
                 if (localStorage.getItem('couponApplied') === 'false') {
                     localStorage.setItem('couponApplied', 'true');
+                    
                 } else {
                     localStorage.setItem('couponApplied', 'true');
+                    
                 }
                 localStorage.setItem('coupon_name', response.old.applied_coupon_name);
 
@@ -979,7 +1006,6 @@ function update_total(sub, discount, ct_id) {
     if (total < 0) {
         total = 0;
     }
-    console.log(total);
 
     if (subtotal < 199) {
         $("#order_total").html('<i class="fa-solid fa-indian-rupee-sign"></i>' + total.toFixed(2));
@@ -1003,7 +1029,7 @@ function update_total_msg(old) {
         $('#coupon_applied').removeClass('d-none');
     }
 
-
+    //   console.log(localStorage.getItem('couponApplied'));
 
     $('#coupon_applied').empty();
     $('#coupon_applied').append(`
@@ -1041,27 +1067,29 @@ function update_total_msg(old) {
     });
 }
 
-
 $(document).ready(function() {
+    // console.log(localStorage.getItem('couponApplied'));
     if (localStorage.getItem('couponApplied') === 'false') {
-
         $('#coupon_applied').addClass('d-none');
         $('#coupon_applied').empty();
         $('#coupon_applied').append(`
-        <p class="mb-0">${localStorage.getItem('coupon_name')} Applied</p>
-        <button class="btn-close" aria-label="Close" onclick="msg_close_alter()"></button>
-    `);
+        <p class="mb-0">${localStorage.getItem('coupon_name')} Applied </p>
+        <button class="btn-close" aria-label="close" onclick="msg_close_alter()"></button>
+        `);
+     
     } else {
         $('#coupon_applied').removeClass('d-none');
         $('#coupon_applied').empty();
         $('#coupon_applied').append(`
-        <p class="mb-0">${localStorage.getItem('coupon_name')} Applied</p>
-        <button class="btn-close" aria-label="Close" onclick="msg_close_alter()"></button>
-    `);
+        <p class="mb-0">${localStorage.getItem('coupon_name')} Applied </p>
+        <button class="btn-close" aria-label="close" onclick="msg_close_alter()"></button>
+         `);
     }
 
 
 });
+
+
 
 function msg_close_alter() {
     $.ajax({
@@ -1073,6 +1101,8 @@ function msg_close_alter() {
         }
     });
 }
+
+
 
 
 
@@ -1094,7 +1124,6 @@ function msg_close_func(applied) {
                 localStorage.setItem('coupon_name', applied.applied_coupon_name);
                 updateCart();
 
-
             }
         }
     });
@@ -1108,70 +1137,62 @@ function msg_close_func(applied) {
 
 
 <script>
-function numbertowords(number) {
-    var words = '';
-    const ones = {
-        0 : '', 
-        1 : 'ONE', 
-        2 : 'TWO', 
-        3 : 'THREE', 
-        4 : 'FOUR', 
-        5 : 'FIVE', 
-        6 : 'SIX', 
-        7 : 'SEVEN', 
-        8 : 'EIGHT', 
-        9 : 'NINE', 
-        10 : 'TEN',
-        11 : 'ELEVEN',
-        12 : 'TWELVE',
-        13 : 'THIRTEEN',
-        14 : 'FOURTEEN',
-        15 : 'FIFTEEN',
-        16 : 'SIXTEEN',
-        17 : 'SEVENTEEN',
-        18 : 'EIGHTEEN',
-        19 : 'NINETEEN',
-        20 : 'TWENTY',
-        30 : 'THIRTY',
-        40 : 'FOUTY',
-        50 : 'FIFTY',
-        60 : 'SIXTY',
-        70 : 'SEVENTY',
-        80 : 'EIGHTY',
-        90 : 'NINETY',
+$(document).ready(function() {
 
-    }
-    const hundreds = {
-                1 : 'ONE HUNDRED',
-                2 : 'TWO HUNDRED',
-                3 : 'THREE HUNDRED',
-                4 : 'FOUR HUNDRED',
-                5 : 'FIVE HUNDRED',
-                6 : 'SIX HUNDRED',
-                7 : 'SEVEN HUNDRED',
-                8 : 'EIGHT HUNDRED',
-                9 : 'NINE HUNDRED'
-    }
+    $('#app_coupon').on('click', function() {
+        var cop = $('#coupon_input').val();
 
-    // console.log(ones);
-    // console.log(hundreds);
-    if(number < 20){
-        words = ones[number];
-    // console.log(words);
-    }  else if(number < 100){
-        words = ones[Math.floor(number / 10) * 10 ] + ' ' + ones[number % 10];
-        // console.log(words);
-    } else if(number < 1000){ 
-        words = hundreds[Math.floor(number / 100)] + ' AND ' + numbertowords(number % 100);
-        console.log(words);
-       
-    }
-    
-}
-var total = numbertowords(101);
-console.log(total);
-
-
+        $.ajax({
+            type: "get",
+            url: "<?php echo base_url("get_coupon_list_by_name") ?>",
+            data: {
+                cop: cop
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.status == 1) {
+                    if (response.cop !== null) {
+                        var min = response.cop.cp_min_price - response.subtotal;
+                        if (response.cop.cp_min_price <= response.subtotal) {
+                            apply(response.cop.cp_id);
+                            $('#coupon_input').val('');
+                        } else {
+                            $('#err_div').removeClass('d-none');
+                            $("#err_txt").html(
+                                'Add <i class="fa-solid fa-indian-rupee-sign"></i>' +
+                                min +
+                                ' to Unlock this Coupon');
+                            setTimeout(() => {
+                                $('#err_div').addClass('d-none');
+                            }, 3000);
+                        }
+                    } else {
+                        $('#err_div').removeClass('d-none');
+                        $("#err_txt").text('Please check coupon code');
+                        setTimeout(() => {
+                            $('#err_div').addClass('d-none');
+                        }, 3000);
+                    }
+                } else if (response.status == 2) {
+                    $('#err_div').removeClass('d-none');
+                    $("#err_txt").text('Please enter coupon');
+                    setTimeout(() => {
+                        $('#err_div').addClass('d-none');
+                    }, 3000);
+                } else {
+                    $('#err_div').removeClass('d-none');
+                    $("#err_txt").text('Please insert Correct coupon');
+                    setTimeout(() => {
+                        $('#err_div').addClass('d-none');
+                    }, 3000);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("sorry its error" + error);
+            }
+        });
+    });
+});
 </script>
 
 </html>

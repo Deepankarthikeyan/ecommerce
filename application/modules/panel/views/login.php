@@ -54,7 +54,7 @@ input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 5px; 
     transition: border-color 0.3s;
 }
 
@@ -92,6 +92,27 @@ button:hover {
 .message a:hover {
     text-decoration: underline;
 }
+.toggle-password {
+    cursor: pointer;
+    color: #3498db;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: inline-block;
+}
+#pass {
+    position: relative;
+}
+
+#eye_icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+}
+
+#eye_icon i {
+    font-size: 20px;
+}
+
 </style>
 <body>
     <div class="login-container">
@@ -107,9 +128,11 @@ button:hover {
                 <label for="email">Email</label>
                 <input type="text" id="email" name="email" required>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="pass">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
+                <span class="toggle-password" id="eye_icon"><i class="fa-solid fa-eye"></i><i
+                class="fa-solid fa-eye-slash d-none"></i></span>
             </div>
             <button type="submit">Login</button>
             <p class="message">Not registered? <a href="<?php echo base_url('create_account_page') ?>">Create an account</a></p>
@@ -142,11 +165,13 @@ button:hover {
             <small id="emailHelp" class="form-text text-muted">We'll send you a link to reset your password.</small>
           </div>
           <button type="submit" class="btn btn-primary">Send Reset Link</button>
+          <small class="form-text text-muted"></small>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 
     <script>
         $(document).ready(function () {
@@ -162,7 +187,6 @@ button:hover {
                     password:password
                 },
                 success: function (response) {
-                    // console.log(response);
                     if (response == 1) {
                   $('#error').removeClass('d-none');
                   $('#error_txt').text('Username is invalid');
@@ -224,29 +248,43 @@ button:hover {
 <script>
   $(document).ready(function() {
     $('#forgotPasswordForm').on('submit', function(event) {
-      event.preventDefault(); // Prevent the default form submission
+      event.preventDefault(); 
 
-      // Get the email value
       var email = $('#email').val();
 
-      // Here you can add your AJAX call to send the email for password reset
-      // For example:
       $.ajax({
-        url: 'your-server-endpoint', // Replace with your server endpoint
+        url: '<?php echo base_url() ?>', 
         type: 'POST',
         data: { email: email },
         success: function(response) {
-          // Handle success (e.g., show a success message)
           alert('Password reset link sent to ' + email);
-          $('#forgotPasswordModal').modal('hide'); // Close the modal
+          $('#forgotPasswordModal').modal('hide'); 
         },
         error: function() {
-          // Handle error (e.g., show an error message)
           alert('Error sending password reset link. Please try again.');
         }
       });
     });
   });
+</script>
+
+<script>
+$(document).ready(function() {
+    $(".toggle-password").click(function() {
+        const passwordField = $("#password");
+        const toggleText = $(this);
+
+        if (passwordField.attr("type") === "password") {
+            passwordField.attr("type", "text");
+            $('.fa-eye').addClass('d-none');
+            $('.fa-eye-slash').removeClass('d-none');
+        } else {
+            passwordField.attr("type", "password");
+            $('.fa-eye-slash').addClass('d-none');
+            $('.fa-eye').removeClass('d-none');
+        }
+    });
+});
 </script>
 </body>
 </html>

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create account</title>
+    <link rel="icon" href="<?php echo base_url('assets/images/leaf_logo.png') ?>" type="image/png"> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -65,10 +66,10 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    transition: border-color 0.3s;
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    transition: border-color 0.3s; 
 }
 
 input:focus {
@@ -218,12 +219,15 @@ $(document).ready(function() {
         }
     });
 });
+
+
 </script>
 
 <script>
     $('.create').on('click', function(){
        var mail =  $('#emailOrNumber').val();
        if(is_nan(mail)){
+
        }
     });
 </script>

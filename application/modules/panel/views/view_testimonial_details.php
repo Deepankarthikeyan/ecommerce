@@ -33,6 +33,18 @@
             margin-left:50px;
         }
     }
+    .fa-star {
+        cursor:pointer;
+        color:grey;
+        transition:0.5s;
+        font-size:30px;
+    }
+    .fa-star.hover{
+        color:gold;
+    }
+    .fa-star.checked{
+        color:gold;
+    }
 
 </style>
 <body>
@@ -56,7 +68,7 @@
                 <div class="mb-3">
                      
                             <?php 
-                            if($test['t_image'] != ''){ 
+                            if($test['t_image'] != '') { 
                    $image = "assets/images/" . $test['t_image']; 
                 
                            ?>
@@ -80,6 +92,20 @@
                     <label for="t_others" class="form-label"><b>Client Feedback</b></label>
                     <textarea name="t_others" id="t_others" class="form-control"><?php echo htmlspecialchars($test['t_others']); ?></textarea>
                 </div>
+                <div class="mb-3">
+                    <label for="t_ratings" class="form-label"><b>Client Ratings</b></label><br>
+                    <input type="text" id="t_rating" name="t_rating" value="<?php echo htmlspecialchars ($test['t_rating']) ?>" hidden>
+                    <i class="fa fa-star" id="t_ratings_1" onmouseover="hoverStar(1)" onmouseout="resetStars()"
+                        onclick="selectStar(1)"></i>
+                    <i class="fa fa-star" id="t_ratings_2" onmouseover="hoverStar(2)" onmouseout="resetStars()"
+                        onclick="selectStar(2)"></i>
+                    <i class="fa fa-star" id="t_ratings_3" onmouseover="hoverStar(3)" onmouseout="resetStars()"
+                        onclick="selectStar(3)"></i>
+                    <i class="fa fa-star" id="t_ratings_4" onmouseover="hoverStar(4)" onmouseout="resetStars()"
+                        onclick="selectStar(4)"></i>
+                    <i class="fa fa-star" id="t_ratings_5" onmouseover="hoverStar(5)" onmouseout="resetStars()"
+                        onclick="selectStar(5)"></i>
+                </div>
                 <div class="text-center"><button type="submit" class="btn btn-primary">Update</button></div>
             </form>
         </div>
@@ -90,6 +116,7 @@
         $('#testimonial_form').on('submit', function(event) {
             event.preventDefault();
             var formData = new FormData(this);
+
 
             $.ajax({
                 type: "POST",
@@ -105,14 +132,14 @@
                             $('#err_div').addClass('d-none');
                         }, 3000);
                     }
-                    else if(response == 2){
+                    else if(response == 2) {
                         $('#succ_div').removeClass('d-none');
                         $('#succ_txt').text('Testimonials Updated successfully');
                         setTimeout(() => {
                             $('#succ_div').addClass('d-none');
                         }, 3000);
                     }
-                    else if(response == 3){
+                    else if(response == 3) {
                         $('#err_div').removeClass('d-none');
                         $('#err_txt').text('Testimonials Update error');
                         setTimeout(() => {
@@ -140,11 +167,58 @@
             reader.onload = function(e) {
                 const imgElement = document.getElementById("clientImage");
                 imgElement.src = e.target.result;
-                imgElement.style.display = 'block';
             }
             reader.readAsDataURL(file);
         }
     }
+
+
     </script>
+
+    <script>
+        let selectedRating = 0;
+        
+        function hoverStar(rating){
+            const stars = document.querySelectorAll('.fa-star');
+            stars.forEach((star, index) => {
+                if(index < rating) {
+                    star.classList.add('hover');
+                } else {
+                    star.classList.remove('hover');
+                }
+            });
+        }
+
+
+        function resetStars() {
+        const stars = document.querySelectorAll('.fa-star');
+        stars.forEach((star, index) => {
+            if (index < selectedRating) {
+                star.classList.add('checked'); 
+            } else {
+                star.classList.remove('checked'); 
+            }
+            star.classList.remove('hover'); 
+        });
+    }
+        
+        function selectStar(rating) {
+        selectedRating = rating; 
+        document.getElementById('t_rating').value = selectedRating;
+        resetStars();
+    }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+           var rate =  $('#t_rating').val();
+           for(i=1;i<=rate;i++){
+            $('#t_ratings_' + i).css('color','red');
+           }
+             
+        });
+
+    </script>
+    
 </body>
 </html>

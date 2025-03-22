@@ -113,6 +113,10 @@ $route['get_update_coupon'] = 'website_landing/Landing_controller/get_update_cou
 $route['remove_coupon_by_id'] = 'website_landing/Landing_controller/remove_coupon_by_id';
 $route['get_applied_list'] = 'website_landing/Landing_controller/get_applied_list';
 $route['get_min_coupon_price'] = 'website_landing/Landing_controller/get_min_coupon_price';
+$route['login_page'] = 'website_landing/Landing_controller/login_page';
+$route['get_coupon_list_by_name'] = 'website_landing/Landing_controller/get_coupon_list_by_name';
+$route['update_notify_activity'] = 'panel/panel_controller/update_notify_activity';
+$route['get_notification_active_or_not'] = 'panel/panel_controller/get_notification_active_or_not';
 
 
 

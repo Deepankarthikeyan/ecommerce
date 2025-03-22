@@ -235,7 +235,7 @@ if ( ! function_exists('anchor_popup'))
 		return '<a href="'.$site_url
 			.'" onclick="window.open(\''.$site_url."', '".$window_name."', '"._stringify_attributes($atts, TRUE)."'); return false;\""
 			.$attributes.'>'.$title.'</a>';
-	}
+	} 
 }
 
 // ------------------------------------------------------------------------

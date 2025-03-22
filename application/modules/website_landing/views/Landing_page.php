@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
+    <link rel="icon" href="<?php echo base_url('assets/images/leaf_logo.png') ?>" type="image/png"> 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
     </script>
@@ -159,11 +160,13 @@
     .icon-container {
         width: 50px;
         height: 50px;
-        background-color: white;
+        background-color: #ffffff;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        border-radius:50%;
+        padding:10px;
     }
 
     .icon {
@@ -1040,15 +1043,13 @@
         z-index: 2;
         opacity: 0;
         transform: translateY(-100%);
-        transition: 0.5s ease-out;
-        delay: 1s;
+        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     }
 
     #navbar.visible {
         opacity: 1;
         transform: translateY(0%);
-        transition: 0.5s ease-in;
-        delay: 1s;
+        transition: opacity 0.5s ease-in, transform 0.5s ease-in;
     }
 
     #our_product_icons .p_icon:hover {
@@ -1059,13 +1060,15 @@
         color: white;
     }
 
-    @media(max-width:650px) {
+    @media(max-width: 650px) {
         #navbar {
-            display: flex;
+            position:absolute;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 200px;
+            opacity: 1;
+            transform: translateY(0%);
         }
     }
 
@@ -1202,6 +1205,7 @@
 
     body {
         position: relative;
+        width:100%;
     }
 
     .scroll_up {
@@ -1758,6 +1762,7 @@
     }
 
     .search {
+        display:none;
         position: absolute;
         left: 780px;
         top: 110px;
@@ -2008,6 +2013,12 @@
     .count_btn {
         transition: 0.5s ease;
     }
+.static-product-list{
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr);
+     gap: 20px;
+}
+    
     </style>
 </head>
 
@@ -2018,16 +2029,16 @@
      $user_f_l = substr($username, 0, 1);
  } ?>
     <div class="scroll_up">
-        <button class="btn" id="scroll_up_btn"> <i class="fa-solid fa-angle-up icon"></i></button>
+        <button class="btn" id="scroll_up_btn"> <i class="fa-angle-up fa-solid icon"></i></button>
     </div>
 
     <section>
         <div class="container">
             <div class="row info-container">
-                <ul class="col-4 col-lg-4 col-sm-12 col-md-6 d-flex gap-5" id="head1">
-                    <li class="text-nowrap"><i class="fa-solid fa-location-dot"></i> <a href=""><b>15/A, Nest Tower,
+                <ul class="col-4 col-lg-4 col-md-6 col-sm-12 d-flex gap-5" id="head1">
+                    <li class="text-nowrap"><i class="fa-location-dot fa-solid"></i> <a href=""><b>15/A, Nest Tower,
                                 NYC</b></a></li>
-                    <li class="text-nowrap"><i class="fa-regular fa-envelope"></i> <a
+                    <li class="text-nowrap"><i class="fa-envelope fa-regular"></i> <a
                             href=""><b>info@webmail.com</b></a></li>
                 </ul>
                 <div class="col-4 col-sm-6 d-flex justify-content-end gap-4" id="lang_soc">
@@ -2039,14 +2050,14 @@
                     </ul>
                 </div>
             </div>
-            <div class="header2 d-flex flex-column flex-md-row justify-content-between align-items-center mt-2">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between header2 mt-2">
                 <ul class="brand-image mb-3 mb-md-0">
                     <li><img src="assets/images/logo.png" alt="Logo" style="max-width: 100%; height: auto;"></li>
                 </ul>
                 <ul class="d-flex gap-4 mb-3 mb-md-0" id="sections">
-                    <li><a href=""><b>Home <i class="fa-solid fa-plus"></i></b></a></li>
+                    <li><a href=""><b>Home <i class="fa-plus fa-solid"></i></b></a></li>
                     <li id="shop">
-                        <a href=""><b>Shop <i class="fa-solid fa-plus"></i></b></a>
+                        <a href=""><b>Shop <i class="fa-plus fa-solid"></i></b></a>
                         <div class="shop_details">
                             <div style="background-color:#80B500;width:100%;height:7px;"></div>
                             <div class="shop_content">
@@ -2057,24 +2068,24 @@
                             </div>
                         </div>
                     </li>
-                    <li id="about"><a href=""><b>About <i class="fa-solid fa-plus"></i></b></a></li>
-                    <li><a href=""><b>News <i class="fa-solid fa-plus"></i></b></a></li>
-                    <li><a href=""><b>Page <i class="fa-solid fa-plus"></i></b></a></li>
+                    <li id="about"><a href=""><b>About <i class="fa-plus fa-solid"></i></b></a></li>
+                    <li><a href=""><b>News <i class="fa-plus fa-solid"></i></b></a></li>
+                    <li><a href=""><b>Page <i class="fa-plus fa-solid"></i></b></a></li>
                 </ul>
                 <ul>
                     <li><a href="" class="btn get_quote"><b>GET A QUOTE</b></a></li>
                 </ul>
                 <ul class="d-flex gap-4 mb-3 mb-md-0" id="icon_sections">
-                    <li class="icon-container d-flex justify-content-center align-items-center" id="toggleSidebar"
+                    <li class="d-flex align-items-center justify-content-center icon-container" id="toggleSidebar"
                         style="padding:15px;">
-                        <a href="#" class="d-flex justify-content-center align-items-center" id="bar-icon">
-                            <i class="fa-solid fa-bars icon"></i>
+                        <a href="#" class="d-flex align-items-center justify-content-center" id="bar-icon">
+                            <i class="fa-bars fa-solid icon"></i>
                         </a>
                     </li>
                     <li class="icon-container" id="whislist_list">
                         <a href="<?php echo base_url('whislist_list') ?>"
-                            class="d-flex justify-content-center align-items-center">
-                            <i class="fa-regular fa-heart icon"></i>
+                            class="d-flex align-items-center justify-content-center">
+                            <i class="fa-heart fa-regular icon"></i>
                         </a>
                         <sup class="whislist_count">
                             <h6><b><?php echo count($whislist) ?></b></h6>
@@ -2082,19 +2093,19 @@
                     </li>
                     <li class="icon-container" id="search-toggle">
                         <a href="#" class="d-flex justify-content-center">
-                            <i class="fa-solid fa-magnifying-glass icon" id="search-icon"></i>
-                            <i class="fa-solid fa-xmark icon d-none" id="search-icon"></i>
+                            <i class="fa-magnifying-glass fa-solid icon" id="search-icon"></i>
+                            <i class="d-none fa-solid fa-xmark icon" id="search-icon"></i>
                         </a>
                     </li>
 
                     <div class="user_list" id="user_list">
-                        <h5 class="username badge bg-danger"><b>Hi <?php echo $username ?></b></h5>
-                        <p><a href="<?php echo base_url('login_website') ?>">Login</a></p>
+                        <h5 class="badge bg-danger username"><b>Hi <?php echo $username ?></b></h5>
+                        <p><a href="" onclick="login_website()">Login</a></p>
                         <p><a href="<?php echo base_url('create_account_page') ?>">Create Account</a></p>
                         <p><a href="<?php echo base_url('logout') ?>">logout</a></p>
                     </div>
                     <li class="icon-container" id="toggleUser">
-                        <a href="#" class="d-flex justify-content-center align-items-center">
+                        <a href="#" class="d-flex align-items-center justify-content-center">
                             <?php if(empty($this->session->userdata("web_user_name"))) { ?>
                             <i class="fa-regular fa-user icon"></i>
                             <?php  } else { ?>
@@ -2105,8 +2116,8 @@
                     </li>
 
                     <li class="icon-container" id="shopping_cart">
-                        <a href="#" class="d-flex justify-content-center align-items-center">
-                            <i class="fa-solid fa-cart-shopping icon"></i>
+                        <a href="#" class="d-flex align-items-center justify-content-center">
+                            <i class="fa-cart-shopping fa-solid icon"></i>
                         </a>
 
                         <sup class="cartlist_count">
@@ -2123,18 +2134,18 @@
 
         <div class="container banner_container">
             <div id="prev_div" class="icon-container" style="">
-                <button class="btn" id="prevBtn"><i class="fa-solid fa-arrow-left icon"></i></button>
+                <button class="btn" id="prevBtn"><i class="fa-arrow-left fa-solid icon"></i></button>
             </div>
             <div id="next_div" class="icon-container">
-                <button class="btn" id="nextBtn"><i class="fa-solid fa-arrow-right icon"></i></button>
+                <button class="btn" id="nextBtn"><i class="fa-arrow-right fa-solid icon"></i></button>
             </div>
 
             <div class="owl-carousel owl-theme">
-                <div class="row item d-flex">
-                    <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="d-flex row item">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <img src="assets/images/21.png" alt="Image 1">
                     </div>
-                    <div class="col-md-6 col-lg-6 col-sm-12 text_section">
+                    <div class="col-lg-6 col-md-6 col-sm-12 text_section">
                         <div class="d-flex head_text1">
                             <div class="img_fruit">
                                 <img src="assets\images\1.png" alt="" id="fruit_img">
@@ -2151,13 +2162,13 @@
 
                     </div>
                 </div>
-                <div class="row item2 d-flex">
-                    <div class="col-md-6 col-lg-6 col-sm-12  order-2 order-md-1" id="text_section_two">
-                        <div class="d-flex justify-content-end align-items-center head_text_two">
+                <div class="d-flex row item2">
+                    <div class="col-lg-6 col-md-6 col-sm-12 order-2 order-md-1" id="text_section_two">
+                        <div class="d-flex align-items-center justify-content-end head_text_two">
                             <div class="img_fruit">
                                 <img src="assets/images/1.png" alt="" id="fruit_img">
                             </div>
-                            <h1 class="product1_text1 text-end"><b>100% Genuine Products</b></h1>
+                            <h1 class="text-end product1_text1"><b>100% Genuine Products</b></h1>
                         </div>
 
                         <div class="product2_text2">
@@ -2172,7 +2183,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-6 col-sm-12 order-1 order-md-2">
+                    <div class="col-lg-6 col-md-6 col-sm-12 order-1 order-md-2">
                         <img src="assets/images/23.png" alt="Image 1">
                     </div>
                 </div>
@@ -2209,17 +2220,17 @@
     <!-- our products
         ------------ -->
     <div class="mt-5">
-        <div class="tabs-container container-fluid ">
+        <div class="container-fluid tabs-container">
             <h1 class="text-center">Our Products </h1>
             <div class="tabs">
                 <div class="tab-links">
-                    <button class="tab-link active" data-tab="tab-1"><i class="fa-solid fa-mug-hot"></i>FOOD &
+                    <button class="active tab-link" data-tab="tab-1"><i class="fa-mug-hot fa-solid"></i>FOOD &
                         DRINKS</button>
-                    <button class="tab-link" data-tab="tab-2"><i class="fa-solid fa-carrot"></i> VEGETABLES</button>
-                    <button class="tab-link" data-tab="tab-3"><i class="fa-solid fa-apple-whole"></i> FRUITS</button>
-                    <button class="tab-link" data-tab="tab-4"><i class="fa-solid fa-bread-slice"></i> BREAD &
+                    <button class="tab-link" data-tab="tab-2"><i class="fa-carrot fa-solid"></i> VEGETABLES</button>
+                    <button class="tab-link" data-tab="tab-3"><i class="fa-apple-whole fa-solid"></i> FRUITS</button>
+                    <button class="tab-link" data-tab="tab-4"><i class="fa-bread-slice fa-solid"></i> BREAD &
                         CAKE</button>
-                    <button class="tab-link" data-tab="tab-5"><i class="fa-solid fa-fish"></i> FISH & MEAT</button>
+                    <button class="tab-link" data-tab="tab-5"><i class="fa-fish fa-solid"></i> FISH & MEAT</button>
                 </div>
                 <div class="tab-content" id="tab-1" style="position:relative;">
                     <?php if (count($foods_and_drink) > 8): ?>
@@ -2230,22 +2241,22 @@
                             <?php
                     if (isset($foods_and_drink[$i])) {
                         $image_path = 'assets/images/' . $foods_and_drink[$i]['p_image']; ?>
-                            <div class="card my-card mt-5" style="width: 15rem;">
+                            <div class="card mt-5 my-card" style="width: 15rem;">
                                 <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                     style="width:290px;height:200px;">
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         <?php echo htmlspecialchars($foods_and_drink[$i]['p_name']); ?>
                                     </h5>
-                                    <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                         <b><?php echo ($foods_and_drink[$i]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($foods_and_drink[$i]['p_others']); ?></b></p>
 
-                                    <div class="add_btn_cart btn"
+                                    <div class="btn add_btn_cart"
                                         id="add_btn_<?php echo ($foods_and_drink[$i]['p_id']); ?>">
 
-                                        <button class="count_btn btn btn-primary"
+                                        <button class="btn btn-primary count_btn"
                                             id="count_<?php echo ($foods_and_drink[$i]['p_id']); ?>"
                                             data-id="<?php echo ($foods_and_drink[$i]['p_id']); ?>">Add</button>
 
@@ -2255,15 +2266,15 @@
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $foods_and_drink[$i]['p_id']; ?>" class="view_btn"><i
-                                                class="fa-solid fa-eye"></i></div>
+                                                class="fa-eye fa-solid"></i></div>
 
                                     <div id="cart_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $foods_and_drink[$i]['p_id']; ?>" class="car_btn"
-                                            data-bs-toggle="modal"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            data-bs-toggle="modal"><i class="fa-cart-shopping fa-solid"></i></button>
                                     </div>
                                     <div id="whistlist_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $foods_and_drink[$i]['p_id']; ?>" class="whist_btn">
-                                            <i class="fa-regular fa-heart"></i></button></div>
+                                            <i class="fa-heart fa-regular"></i></button></div>
                                 </div>
                             </div>
                             <?php } ?>
@@ -2271,22 +2282,22 @@
                             <?php
                     if (isset($foods_and_drink[$i + 1])) {
                         $image_path = 'assets/images/' . $foods_and_drink[$i + 1]['p_image']; ?>
-                            <div class="card my-card mt-5" style="width: 15rem;">
+                            <div class="card mt-5 my-card" style="width: 15rem;">
                                 <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                     style="width:290px;height:200px;">
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         <?php echo htmlspecialchars($foods_and_drink[$i + 1]['p_name']); ?>
                                     </h5>
-                                    <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                         <b><?php echo ($foods_and_drink[$i + 1]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($foods_and_drink[$i + 1]['p_others']); ?></b>
                                     </p>
-                                    <div class="add_btn_cart btn"
+                                    <div class="btn add_btn_cart"
                                         id="add_btn_<?php echo ($foods_and_drink[$i + 1]['p_id']); ?>">
 
-                                        <button class="count_btn btn btn-primary"
+                                        <button class="btn btn-primary count_btn"
                                             id="count_<?php echo ($foods_and_drink[$i + 1]['p_id']); ?>"
                                             data-id="<?php echo ($foods_and_drink[$i + 1]['p_id']); ?>">Add</button>
 
@@ -2295,15 +2306,15 @@
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $foods_and_drink[$i + 1]['p_id']; ?>"
-                                            class="view_btn"><i class="fa-solid fa-eye"></i></div>
+                                            class="view_btn"><i class="fa-eye fa-solid"></i></div>
                                     <div id="cart_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $foods_and_drink[$i + 1]['p_id']; ?>" class="car_btn"
-                                            data-bs-toggle="modal"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            data-bs-toggle="modal"><i class="fa-cart-shopping fa-solid"></i></button>
                                     </div>
                                     <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                             data-bs-toggle="modal"
                                             data-id="<?php echo $foods_and_drink[$i + 1]['p_id']; ?>">
-                                            <i class="fa-regular fa-heart"></i></button>
+                                            <i class="fa-heart fa-regular"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -2315,31 +2326,30 @@
                     </div>
                     <div class="our_product_next_btn">
                         <button class="btn" data-target="#our_product"><i
-                                class="fa-solid fa-arrow-right icon"></i></button>
+                                class="fa-arrow-right fa-solid icon"></i></button>
                     </div>
                     <div class="our_product_prev_btn">
                         <button class="btn" data-target="#our_product"><i
-                                class="fa-solid fa-arrow-left icon"></i></button>
+                                class="fa-arrow-left fa-solid icon"></i></button>
                     </div>
 
                     <?php else: ?>
-                    <div class="static-product-list"
-                        style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                    <div class="static-product-list">
                         <?php foreach ($foods_and_drink as $item): ?>
-                        <div class="card my-card mt-5" style="width: 15rem;">
+                        <div class="card mt-5 my-card" style="width: 15rem;">
                             <?php
                     $image_path = 'assets/images/' . $item['p_image']; ?>
                             <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top uniform-image"
                                 alt="..." style="width:220px;height:200px;">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo htmlspecialchars($item['p_name']); ?></h5>
-                                <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                     <b><?php echo ($item['p_price']); ?></b>
                                 </p>
                                 <p class="card-text"><b><?php echo ($item['p_others']); ?></b></p>
-                                <div class="add_btn_cart btn" id="add_btn_<?php echo ($item['p_id']); ?>">
+                                <div class="btn add_btn_cart" id="add_btn_<?php echo ($item['p_id']); ?>">
 
-                                    <button class="count_btn btn btn-primary" id="count_<?php echo ($item['p_id']); ?>"
+                                    <button class="btn btn-primary count_btn" id="count_<?php echo ($item['p_id']); ?>"
                                         data-id="<?php echo ($item['p_id']); ?>">Add</button>
 
                                 </div>
@@ -2347,13 +2357,13 @@
                             <div class="icon" id="our_product_icons">
                                 <div id="view_icon" class="p_icon"><button type="button"
                                         data-id="<?php echo $item['p_id']; ?>" class="view_btn"><i
-                                            class="fa-solid fa-eye"></i></div>
+                                            class="fa-eye fa-solid"></i></div>
                                 <div id="cart_icon" class="p_icon"><button type="button"
                                         data-id="<?php echo $item['p_id']; ?>" class="car_btn" data-bs-toggle="modal"><i
-                                            class="fa-solid fa-cart-shopping"></i></button></div>
+                                            class="fa-cart-shopping fa-solid"></i></button></div>
                                 <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                         data-bs-toggle="modal" data-id="<?php echo $item['p_id']; ?>">
-                                        <i class="fa-regular fa-heart"></i></button></div>
+                                        <i class="fa-heart fa-regular"></i></button></div>
                             </div>
                         </div>
                         <?php endforeach; ?>
@@ -2372,36 +2382,35 @@
                             <?php
                     if (isset($vegetable[$i])) {
                         $image_path = 'assets/images/' . $vegetable[$i]['p_image']; ?>
-                            <div class="card my-card mt-5" style="width: 15rem;">
+                            <div class="card mt-5 my-card" style="width: 15rem;">
                                 <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                     style="width:290px;height:200px;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($vegetable[$i]['p_name']); ?>
                                     </h5>
-                                    <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                         <b><?php echo ($vegetable[$i]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($vegetable[$i]['p_others']); ?></b></p>
-                                    <div class="add_btn_cart btn" id="add_btn_<?php echo ($vegetable[$i]['p_id']); ?>">
+                                    <div class="btn add_btn_cart" id="add_btn_<?php echo ($vegetable[$i]['p_id']); ?>">
 
-                                        <button class="count_btn btn btn-primary"
+                                        <button class="btn btn-primary count_btn"
                                             id="count_<?php echo ($vegetable[$i]['p_id']); ?>"
                                             data-id="<?php echo ($vegetable[$i]['p_id']); ?>">Add</button>
-
                                     </div>
                                 </div>
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $vegetable[$i]['p_id']; ?>" class="view_btn"><i
-                                                class="fa-solid fa-eye"></i></div>
+                                                class="fa-eye fa-solid"></i></div>
 
                                     <div id="cart_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $vegetable[$i]['p_id']; ?>" class="car_btn"
-                                            data-bs-toggle="modal"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            data-bs-toggle="modal"><i class="fa-cart-shopping fa-solid"></i></button>
                                     </div>
                                     <div id="whistlist_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $vegetable[$i]['p_id']; ?>" class="whist_btn">
-                                            <i class="fa-regular fa-heart"></i></button></div>
+                                            <i class="fa-heart fa-regular"></i></button></div>
                                 </div>
                             </div>
                             <?php } ?>
@@ -2410,20 +2419,20 @@
                             <?php
                     if (isset($vegetable[$i + 1])) {
                         $image_path = 'assets/images/' . $vegetable[$i + 1]['p_image']; ?>
-                            <div class="card my-card mt-5" style="width: 15rem;">
+                            <div class="card mt-5 my-card" style="width: 15rem;">
                                 <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                     style="width:290px;height:200px;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($vegetable[$i + 1]['p_name']); ?>
                                     </h5>
-                                    <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                         <b><?php echo ($vegetable[$i + 1]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($vegetable[$i + 1]['p_others']); ?></b></p>
-                                    <div class="add_btn_cart btn"
+                                    <div class="btn add_btn_cart"
                                         id="add_btn_<?php echo ($vegetable[$i + 1]['p_id']); ?>">
 
-                                        <button class="count_btn btn btn-primary"
+                                        <button class="btn btn-primary count_btn"
                                             id="count_<?php echo ($vegetable[$i + 1]['p_id']); ?>"
                                             data-id="<?php echo ($vegetable[$i + 1]['p_id']); ?>">Add</button>
 
@@ -2432,14 +2441,14 @@
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $vegetable[$i + 1]['p_id']; ?>" class="view_btn"><i
-                                                class="fa-solid fa-eye"></i></div>
+                                                class="fa-eye fa-solid"></i></div>
                                     <div id="cart_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $vegetable[$i + 1]['p_id']; ?>" class="car_btn"
-                                            data-bs-toggle="modal"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            data-bs-toggle="modal"><i class="fa-cart-shopping fa-solid"></i></button>
                                     </div>
                                     <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                             data-bs-toggle="modal" data-id="<?php echo $vegetable[$i + 1]['p_id']; ?>">
-                                            <i class="fa-regular fa-heart"></i></button></div>
+                                            <i class="fa-heart fa-regular"></i></button></div>
                                 </div>
                             </div>
                             <?php } ?>
@@ -2451,31 +2460,30 @@
                     </div>
                     <div class="vegetable_next_btn">
                         <button class="btn" data-target="#vegetable"><i
-                                class="fa-solid fa-arrow-right icon"></i></button>
+                                class="fa-arrow-right fa-solid icon"></i></button>
                     </div>
                     <div class="vegetable_prev_btn">
                         <button class="btn" data-target="#vegetable"><i
-                                class="fa-solid fa-arrow-left icon"></i></button>
+                                class="fa-arrow-left fa-solid icon"></i></button>
                     </div>
 
                     <?php else: ?>
-                    <div class="static-product-list"
-                        style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                    <div class="static-product-list">
                         <?php foreach ($vegetable as $item): ?>
-                        <div class="card my-card mt-5" style="width: 15rem;">
+                        <div class="card mt-5 my-card" style="width: 15rem;">
                             <?php
                     $image_path = 'assets/images/' . $item['p_image']; ?>
                             <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                 style="width:290px;height:200px;">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo htmlspecialchars($item['p_name']); ?></h5>
-                                <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                     <b><?php echo $item['p_price']; ?></b>
                                 </p>
                                 <p class="card-text"><b><?php echo $item['p_others']; ?></b></p>
-                                <div class="add_btn_cart btn" id="add_btn_<?php echo ($item['p_id']); ?>">
+                                <div class="btn add_btn_cart" id="add_btn_<?php echo ($item['p_id']); ?>">
 
-                                    <button class="count_btn btn btn-primary" id="count_<?php echo ($item['p_id']); ?>"
+                                    <button class="btn btn-primary count_btn" id="count_<?php echo ($item['p_id']); ?>"
                                         data-id="<?php echo ($item['p_id']); ?>">Add</button>
 
                                 </div>
@@ -2483,13 +2491,13 @@
                             <div class="icon" id="our_product_icons">
                                 <div id="view_icon" class="p_icon"><button type="button"
                                         data-id="<?php echo $item['p_id']; ?>" class="view_btn"><i
-                                            class="fa-solid fa-eye"></i></div>
+                                            class="fa-eye fa-solid"></i></div>
                                 <div id="cart_icon" class="p_icon"><button type="button"
                                         data-id="<?php echo $item['p_id']; ?>" class="car_btn" data-bs-toggle="modal"><i
-                                            class="fa-solid fa-cart-shopping"></i></button></div>
+                                            class="fa-cart-shopping fa-solid"></i></button></div>
                                 <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                         data-bs-toggle="modal" data-id="<?php echo $item['p_id']; ?>">
-                                        <i class="fa-regular fa-heart"></i></button></div>
+                                        <i class="fa-heart fa-regular"></i></button></div>
                             </div>
                         </div>
                         <?php endforeach; ?>
@@ -2508,20 +2516,20 @@
                             <?php
                     if (isset($fruit[$i])) {
                         $image_path = 'assets/images/' . $fruit[$i]['p_image']; ?>
-                            <div class="card my-card mt-5" style="width: 15rem;">
+                            <div class="card mt-5 my-card" style="width: 15rem;">
                                 <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                     style="width:290px;height:200px;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($fruit[$i]['p_name']); ?>
                                     </h5>
-                                    <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                         <b><?php echo ($fruit[$i]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($fruit[$i]['p_others']); ?></b></p>
 
-                                    <div class="add_btn_cart btn" id="add_btn_<?php echo ($fruit[$i]['p_id']); ?>">
+                                    <div class="btn add_btn_cart" id="add_btn_<?php echo ($fruit[$i]['p_id']); ?>">
 
-                                        <button class="count_btn btn btn-primary"
+                                        <button class="btn btn-primary count_btn"
                                             id="count_<?php echo ($fruit[$i]['p_id']); ?>"
                                             data-id="<?php echo ($fruit[$i]['p_id']); ?>">Add</button>
                                     </div>
@@ -2530,15 +2538,15 @@
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $fruit[$i]['p_id']; ?>" class="view_btn"><i
-                                                class="fa-solid fa-eye"></i></div>
+                                                class="fa-eye fa-solid"></i></div>
 
                                     <div id="cart_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $fruit[$i]['p_id']; ?>" class="car_btn"
-                                            data-bs-toggle="modal"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            data-bs-toggle="modal"><i class="fa-cart-shopping fa-solid"></i></button>
                                     </div>
                                     <div id="whistlist_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $fruit[$i]['p_id']; ?>" class="whist_btn">
-                                            <i class="fa-regular fa-heart"></i></button></div>
+                                            <i class="fa-heart fa-regular"></i></button></div>
                                 </div>
                             </div>
                             <?php } ?>
@@ -2546,19 +2554,19 @@
                             <?php
                     if (isset($fruit[$i + 1])) {
                         $image_path = 'assets/images/' . $fruit[$i + 1]['p_image']; ?>
-                            <div class="card my-card mt-5" style="width: 15rem;">
+                            <div class="card mt-5 my-card" style="width: 15rem;">
                                 <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                     style="width:290px;height:200px;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($fruit[$i + 1]['p_name']); ?>
                                     </h5>
-                                    <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                         <b><?php echo ($fruit[$i + 1]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($fruit[$i + 1]['p_others']); ?></b></p>
-                                    <div class="add_btn_cart btn" id="add_btn_<?php echo ($fruit[$i + 1]['p_id']); ?>">
+                                    <div class="btn add_btn_cart" id="add_btn_<?php echo ($fruit[$i + 1]['p_id']); ?>">
 
-                                        <button class="count_btn btn btn-primary"
+                                        <button class="btn btn-primary count_btn"
                                             id="count_<?php echo ($fruit[$i + 1]['p_id']); ?>"
                                             data-id="<?php echo ($fruit[$i + 1]['p_id']); ?>">Add</button>
                                     </div>
@@ -2566,14 +2574,14 @@
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $fruit[$i + 1]['p_id']; ?>" class="view_btn"><i
-                                                class="fa-solid fa-eye"></i></div>
+                                                class="fa-eye fa-solid"></i></div>
                                     <div id="cart_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $fruit[$i + 1]['p_id']; ?>" class="car_btn"
-                                            data-bs-toggle="modal"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            data-bs-toggle="modal"><i class="fa-cart-shopping fa-solid"></i></button>
                                     </div>
                                     <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                             data-bs-toggle="modal" data-id="<?php echo $fruit[$i + 1]['p_id']; ?>">
-                                            <i class="fa-regular fa-heart"></i></button></div>
+                                            <i class="fa-heart fa-regular"></i></button></div>
                                 </div>
                             </div>
                             <?php } ?>
@@ -2584,30 +2592,29 @@
 
                     </div>
                     <div class="fruit_next_btn">
-                        <button class="btn" data-target="#fruit"><i class="fa-solid fa-arrow-right icon"></i></button>
+                        <button class="btn" data-target="#fruit"><i class="fa-arrow-right fa-solid icon"></i></button>
                     </div>
                     <div class="fruit_prev_btn">
-                        <button class="btn" data-target="#fruit"><i class="fa-solid fa-arrow-left icon"></i></button>
+                        <button class="btn" data-target="#fruit"><i class="fa-arrow-left fa-solid icon"></i></button>
                     </div>
 
                     <?php else: ?>
-                    <div class="static-product-list"
-                        style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                    <div class="static-product-list">
                         <?php foreach ($fruit as $item): ?>
-                        <div class="card my-card mt-5" style="width: 15rem;">
+                        <div class="card mt-5 my-card" style="width: 15rem;">
                             <?php
                     $image_path = 'assets/images/' . $item['p_image']; ?>
                             <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                 style="width:290px;height:200px;">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo htmlspecialchars($item['p_name']); ?></h5>
-                                <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                     <b><?php echo ($item['p_price']); ?></b>
                                 </p>
                                 <p class="card-text"><b><?php echo ($item['p_others']); ?></b></p>
-                                <div class="add_btn_cart btn" id="add_btn_<?php echo ($item['p_id']); ?>">
+                                <div class="btn add_btn_cart" id="add_btn_<?php echo ($item['p_id']); ?>">
 
-                                    <button class="count_btn btn btn-primary" id="count_<?php echo ($item['p_id']); ?>"
+                                    <button class="btn btn-primary count_btn" id="count_<?php echo ($item['p_id']); ?>"
                                         data-id="<?php echo ($item['p_id']); ?>">Add</button>
 
                                 </div>
@@ -2615,13 +2622,13 @@
                             <div class="icon" id="our_product_icons">
                                 <div id="view_icon" class="p_icon"><button type="button"
                                         data-id="<?php echo $item['p_id']; ?>" class="view_btn"><i
-                                            class="fa-solid fa-eye"></i></div>
+                                            class="fa-eye fa-solid"></i></div>
                                 <div id="cart_icon" class="p_icon"><button type="button"
                                         data-id="<?php echo $item['p_id']; ?>" class="car_btn" data-bs-toggle="modal"><i
-                                            class="fa-solid fa-cart-shopping"></i></button></div>
+                                            class="fa-cart-shopping fa-solid"></i></button></div>
                                 <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                         data-bs-toggle="modal" data-id="<?php echo $item['p_id']; ?>">
-                                        <i class="fa-regular fa-heart"></i></button></div>
+                                        <i class="fa-heart fa-regular"></i></button></div>
                             </div>
                         </div>
                         <?php endforeach; ?>
@@ -2640,21 +2647,21 @@
                             <?php
                     if (isset($bread_and_cake[$i])) {
                         $image_path = 'assets/images/' . $bread_and_cake[$i]['p_image']; ?>
-                            <div class="card my-card mt-5" style="width: 15rem;">
+                            <div class="card mt-5 my-card" style="width: 15rem;">
                                 <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                     style="width:290px;height:200px;">
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         <?php echo htmlspecialchars($bread_and_cake[$i]['p_name']); ?>
                                     </h5>
-                                    <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                         <b><?php echo ($bread_and_cake[$i]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($bread_and_cake[$i]['p_others']); ?></b></p>
-                                    <div class="add_btn_cart btn"
+                                    <div class="btn add_btn_cart"
                                         id="add_btn_<?php echo ($bread_and_cake[$i]['p_id']); ?>">
 
-                                        <button class="count_btn btn btn-primary"
+                                        <button class="btn btn-primary count_btn"
                                             id="count_<?php echo ($bread_and_cake[$i]['p_id']); ?>"
                                             data-id="<?php echo ($bread_and_cake[$i]['p_id']); ?>">Add</button>
                                     </div>
@@ -2662,15 +2669,15 @@
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $bread_and_cake[$i]['p_id']; ?>" class="view_btn"><i
-                                                class="fa-solid fa-eye"></i></div>
+                                                class="fa-eye fa-solid"></i></div>
 
                                     <div id="cart_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $bread_and_cake[$i]['p_id']; ?>" class="car_btn"
-                                            data-bs-toggle="modal"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            data-bs-toggle="modal"><i class="fa-cart-shopping fa-solid"></i></button>
                                     </div>
                                     <div id="whistlist_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $bread_and_cake[$i]['p_id']; ?>" class="whist_btn">
-                                            <i class="fa-regular fa-heart"></i></button></div>
+                                            <i class="fa-heart fa-regular"></i></button></div>
                                 </div>
                             </div>
                             <?php } ?>
@@ -2678,21 +2685,21 @@
                             <?php
                     if (isset($bread_and_cake[$i + 1])) {
                         $image_path = 'assets/images/' . $bread_and_cake[$i + 1]['p_image']; ?>
-                            <div class="card my-card mt-5" style="width: 15rem;">
+                            <div class="card mt-5 my-card" style="width: 15rem;">
                                 <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                     style="width:290px;height:200px;">
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         <?php echo htmlspecialchars($bread_and_cake[$i + 1]['p_name']); ?>
                                     </h5>
-                                    <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                         <b><?php echo ($bread_and_cake[$i + 1]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($bread_and_cake[$i + 1]['p_others']); ?></b></p>
-                                    <div class="add_btn_cart btn"
+                                    <div class="btn add_btn_cart"
                                         id="add_btn_<?php echo ($bread_and_cake[$i + 1]['p_id']); ?>">
 
-                                        <button class="count_btn btn btn-primary"
+                                        <button class="btn btn-primary count_btn"
                                             id="count_<?php echo ($bread_and_cake[$i + 1]['p_id']); ?>"
                                             data-id="<?php echo ($bread_and_cake[$i + 1]['p_id']); ?>">Add</button>
                                     </div>
@@ -2700,15 +2707,15 @@
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $bread_and_cake[$i + 1]['p_id']; ?>" class="view_btn"><i
-                                                class="fa-solid fa-eye"></i></div>
+                                                class="fa-eye fa-solid"></i></div>
                                     <div id="cart_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $bread_and_cake[$i + 1]['p_id']; ?>" class="car_btn"
-                                            data-bs-toggle="modal"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            data-bs-toggle="modal"><i class="fa-cart-shopping fa-solid"></i></button>
                                     </div>
                                     <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                             data-bs-toggle="modal"
                                             data-id="<?php echo $bread_and_cake[$i + 1]['p_id']; ?>">
-                                            <i class="fa-regular fa-heart"></i></button></div>
+                                            <i class="fa-heart fa-regular"></i></button></div>
                                 </div>
                             </div>
                             <?php } ?>
@@ -2719,43 +2726,42 @@
 
                     </div>
                     <div class="bread_next_btn">
-                        <button class="btn" data-target="#bread"><i class="fa-solid fa-arrow-right icon"></i></button>
+                        <button class="btn" data-target="#bread"><i class="fa-arrow-right fa-solid icon"></i></button>
                     </div>
                     <div class="bread_prev_btn">
-                        <button class="btn" data-target="#bread"><i class="fa-solid fa-arrow-left icon"></i></button>
+                        <button class="btn" data-target="#bread"><i class="fa-arrow-left fa-solid icon"></i></button>
                     </div>
 
                     <?php else: ?>
-                    <div class="static-product-list"
-                        style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                    <div class="static-product-list">
                         <?php foreach ($bread_and_cake as $item): ?>
-                        <div class="card my-card mt-5" style="width: 15rem;">
+                        <div class="card mt-5 my-card" style="width: 15rem;">
                             <?php
                     $image_path = 'assets/images/' . $item['p_image']; ?>
                             <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                 style="width:290px;height:200px;">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo htmlspecialchars($item['p_name']); ?></h5>
-                                <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                     <b><?php echo ($item['p_price']); ?></b>
                                 </p>
                                 <p class="card-text"><b><?php echo ($item['p_others']); ?></b></p>
-                                <div class="add_btn_cart btn" id="add_btn_<?php echo ($item['p_id']); ?>">
+                                <div class="btn add_btn_cart" id="add_btn_<?php echo ($item['p_id']); ?>">
 
-                                    <button class="count_btn btn btn-primary" id="count_<?php echo ($item['p_id']); ?>"
+                                    <button class="btn btn-primary count_btn" id="count_<?php echo ($item['p_id']); ?>"
                                         data-id="<?php echo ($item['p_id']); ?>">Add</button>
                                 </div>
                             </div>
                             <div class="icon" id="our_product_icons">
                                 <div id="view_icon" class="p_icon"><button type="button"
                                         data-id="<?php echo $item['p_id']; ?>" class="view_btn"><i
-                                            class="fa-solid fa-eye"></i></div>
+                                            class="fa-eye fa-solid"></i></div>
                                 <div id="cart_icon" class="p_icon"><button type="button"
                                         data-id="<?php echo $item['p_id']; ?>" class="car_btn" data-bs-toggle="modal"><i
-                                            class="fa-solid fa-cart-shopping"></i></button></div>
+                                            class="fa-cart-shopping fa-solid"></i></button></div>
                                 <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                         data-bs-toggle="modal" data-id="<?php echo $item['p_id']; ?>">
-                                        <i class="fa-regular fa-heart"></i></button></div>
+                                        <i class="fa-heart fa-regular"></i></button></div>
                             </div>
                         </div>
                         <?php endforeach; ?>
@@ -2775,20 +2781,20 @@
                             <?php
                     if (isset($fish_and_meat[$i])) {
                         $image_path = 'assets/images/' . $fish_and_meat[$i]['p_image']; ?>
-                            <div class="card my-card mt-5" style="width: 15rem;">
+                            <div class="card mt-5 my-card" style="width: 15rem;">
                                 <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                     style="width:290px;height:200px;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($fish_and_meat[$i]['p_name']); ?>
                                     </h5>
-                                    <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                         <b><?php echo ($fish_and_meat[$i]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($fish_and_meat[$i]['p_others']); ?></b></p>
-                                    <div class="add_btn_cart btn"
+                                    <div class="btn add_btn_cart"
                                         id="add_btn_<?php echo ($fish_and_meat[$i]['p_id']); ?>">
 
-                                        <button class="count_btn btn btn-primary"
+                                        <button class="btn btn-primary count_btn"
                                             id="count_<?php echo ($fish_and_meat[$i]['p_id']); ?>"
                                             data-id="<?php echo ($fish_and_meat[$i]['p_id']); ?>">Add</button>
                                     </div>
@@ -2796,14 +2802,14 @@
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $fish_and_meat[$i]['p_id']; ?>" class="view_btn"><i
-                                                class="fa-solid fa-eye"></i></div>
+                                                class="fa-eye fa-solid"></i></div>
                                     <div id="cart_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $fish_and_meat[$i]['p_id']; ?>" class="car_btn"
-                                            data-bs-toggle="modal"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            data-bs-toggle="modal"><i class="fa-cart-shopping fa-solid"></i></button>
                                     </div>
                                     <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                             data-bs-toggle="modal" data-id="<?php echo $fish_and_meat[$i]['p_id']; ?>">
-                                            <i class="fa-regular fa-heart"></i></button></div>
+                                            <i class="fa-heart fa-regular"></i></button></div>
                                 </div>
                             </div>
                             <?php } ?>
@@ -2811,21 +2817,21 @@
                             <?php
                     if (isset($fish_and_meat[$i + 1])) {
                         $image_path = 'assets/images/' . $fish_and_meat[$i + 1]['p_image']; ?>
-                            <div class="card my-card mt-5" style="width: 15rem;">
+                            <div class="card mt-5 my-card" style="width: 15rem;">
                                 <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                     style="width:290px;height:200px;">
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         <?php echo htmlspecialchars($fish_and_meat[$i + 1]['p_name']); ?>
                                     </h5>
-                                    <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                         <b><?php echo ($fish_and_meat[$i + 1]['p_price']); ?></b>
                                     </p>
                                     <p class="card-text"><b><?php echo ($fish_and_meat[$i + 1]['p_others']); ?></b></p>
-                                    <div class="add_btn_cart btn"
+                                    <div class="btn add_btn_cart"
                                         id="add_btn_<?php echo ($fish_and_meat[$i + 1]['p_id']); ?>">
 
-                                        <button class="count_btn btn btn-primary"
+                                        <button class="btn btn-primary count_btn"
                                             id="count_<?php echo ($fish_and_meat[$i + 1]['p_id']); ?>"
                                             data-id="<?php echo ($fish_and_meat[$i + 1]['p_id']); ?>">Add</button>
                                     </div>
@@ -2833,15 +2839,15 @@
                                 <div class="icon" id="our_product_icons">
                                     <div id="view_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $fish_and_meat[$i + 1]['p_id']; ?>" class="view_btn"><i
-                                                class="fa-solid fa-eye"></i></div>
+                                                class="fa-eye fa-solid"></i></div>
                                     <div id="cart_icon" class="p_icon"><button type="button"
                                             data-id="<?php echo $fish_and_meat[$i + 1]['p_id']; ?>" class="car_btn"
-                                            data-bs-toggle="modal"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            data-bs-toggle="modal"><i class="fa-cart-shopping fa-solid"></i></button>
                                     </div>
                                     <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                             data-bs-toggle="modal"
                                             data-id="<?php echo $fish_and_meat[$i + 1]['p_id']; ?>">
-                                            <i class="fa-regular fa-heart"></i></button></div>
+                                            <i class="fa-heart fa-regular"></i></button></div>
                                 </div>
                             </div>
                             <?php } ?>
@@ -2852,43 +2858,42 @@
 
                     </div>
                     <div class="meat_next_btn">
-                        <button class="btn" data-target="#meat"><i class="fa-solid fa-arrow-right icon"></i></button>
+                        <button class="btn" data-target="#meat"><i class="fa-arrow-right fa-solid icon"></i></button>
                     </div>
                     <div class="meat_prev_btn">
-                        <button class="btn" data-target="#meat"><i class="fa-solid fa-arrow-left icon"></i></button>
+                        <button class="btn" data-target="#meat"><i class="fa-arrow-left fa-solid icon"></i></button>
                     </div>
 
                     <?php else: ?>
-                    <div class="static-product-list"
-                        style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                    <div class="static-product-list">
                         <?php foreach ($fish_and_meat as $item): ?>
-                        <div class="card my-card mt-5" style="width: 15rem;">
+                        <div class="card mt-5 my-card" style="width: 15rem;">
                             <?php
                     $image_path = 'assets/images/' . $item['p_image']; ?>
                             <img src="<?php echo htmlspecialchars($image_path); ?>" class="card-img-top" alt="..."
                                 style="width:290px;height:200px;">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo htmlspecialchars($item['p_name']); ?></h5>
-                                <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                <p class="card-text"><i class="fa-indian-rupee-sign fa-solid"></i>
                                     <b><?php echo ($item['p_price']); ?></b>
                                 </p>
                                 <p class="card-text"><b><?php echo ($item['p_others']); ?></b></p>
-                                <div class="add_btn_cart btn" id="add_btn_<?php echo ($item['p_id']); ?>">
+                                <div class="btn add_btn_cart" id="add_btn_<?php echo ($item['p_id']); ?>">
 
-                                    <button class="count_btn btn btn-primary" id="count_<?php echo ($item['p_id']); ?>"
+                                    <button class="btn btn-primary count_btn" id="count_<?php echo ($item['p_id']); ?>"
                                         data-id="<?php echo ($item['p_id']); ?>">Add</button>
                                 </div>
                             </div>
                             <div class="icon" id="our_product_icons">
                                 <div id="view_icon" class="p_icon"><button type="button"
                                         data-id="<?php echo $item['p_id']; ?>" class="view_btn"><i
-                                            class="fa-solid fa-eye"></i></div>
+                                            class="fa-eye fa-solid"></i></div>
                                 <div id="cart_icon" class="p_icon"><button type="button"
                                         data-id="<?php echo $item['p_id']; ?>" class="car_btn" data-bs-toggle="modal"><i
-                                            class="fa-solid fa-cart-shopping"></i></button></div>
+                                            class="fa-cart-shopping fa-solid"></i></button></div>
                                 <div id="whistlist_icon" class="p_icon"><button type="button" class="whist_btn"
                                         data-bs-toggle="modal" data-id="<?php echo $item['p_id']; ?>">
-                                        <i class="fa-regular fa-heart"></i></button></div>
+                                        <i class="fa-heart fa-regular"></i></button></div>
                             </div>
                         </div>
                         <?php endforeach; ?>
@@ -2897,30 +2902,30 @@
                 </div>
 
                 <navbar id="navbar">
-                    <ul class="brand-image d-flex justify-center mb-md-0 mt-3 ">
+                    <ul class="d-flex justify-center brand-image mb-md-0 mt-3">
                         <li><img src="assets/images/logo.png" alt="Logo" style="max-width: 100%; height: auto;"></li>
                     </ul>
-                    <ul class="d-flex gap-4  mb-md-0 mt-4 p-2" id="sections">
-                        <li><a href=""><b>Home <i class="fa-solid fa-plus"></i></b></a></li>
-                        <li><a href=""><b>About <i class="fa-solid fa-plus"></i></b></a></li>
-                        <li><a href=""><b>Shop <i class="fa-solid fa-plus"></i></b></a></li>
-                        <li><a href=""><b>News <i class="fa-solid fa-plus"></i></b></a></li>
-                        <li><a href=""><b>Page <i class="fa-solid fa-plus"></i></b></a></li>
+                    <ul class="d-flex p-2 gap-4 mb-md-0 mt-4" id="sections">
+                        <li><a href=""><b>Home <i class="fa-plus fa-solid"></i></b></a></li>
+                        <li><a href=""><b>About <i class="fa-plus fa-solid"></i></b></a></li>
+                        <li><a href=""><b>Shop <i class="fa-plus fa-solid"></i></b></a></li>
+                        <li><a href=""><b>News <i class="fa-plus fa-solid"></i></b></a></li>
+                        <li><a href=""><b>Page <i class="fa-plus fa-solid"></i></b></a></li>
                     </ul>
                     <ul>
                         <li><a href="" class="btn get_quote mt-3"><b>GET A QUOTE</b></a></li>
                     </ul>
-                    <ul class="d-flex gap-4 mt-3 mb-md-0" id="icon_sections">
-                        <li class="icon-container d-flex justify-content-center align-items-center" id="toggleSidebar"
+                    <ul class="d-flex gap-4 mb-md-0 mt-3" id="icon_sections">
+                        <li class="d-flex align-items-center justify-content-center icon-container" id="toggleSidebar"
                             style="padding:15px;">
-                            <a href="#" class="d-flex justify-content-center align-items-center" id="bar-icon">
-                                <i class="fa-solid fa-bars icon"></i>
+                            <a href="#" class="d-flex align-items-center justify-content-center" id="bar-icon">
+                                <i class="fa-bars fa-solid icon"></i>
                             </a>
                         </li>
                         <li class="icon-container" id="whislist_list">
                             <a href="<?php echo base_url('whislist_list') ?>"
-                                class="d-flex justify-content-center align-items-center">
-                                <i class="fa-regular fa-heart icon"></i>
+                                class="d-flex align-items-center justify-content-center">
+                                <i class="fa-heart fa-regular icon"></i>
                             </a>
                             <sup class="whislist_count">
                                 <h6><b><?php echo count($whislist) ?></b></h6>
@@ -2928,19 +2933,19 @@
                         </li>
                         <li class="icon-container" id="search-toggle">
                             <a href="#" class="d-flex justify-content-center">
-                                <i class="fa-solid fa-magnifying-glass icon" id="search-icon"></i>
-                                <i class="fa-solid fa-xmark icon d-none" id="search-icon"></i>
+                                <i class="fa-magnifying-glass fa-solid icon" id="search-icon"></i>
+                                <i class="d-none fa-solid fa-xmark icon" id="search-icon"></i>
                             </a>
                         </li>
 
                         <li class="icon-container">
-                            <a href="#" class="d-flex justify-content-center align-items-center">
+                            <a href="#" class="d-flex align-items-center justify-content-center">
                                 <i class="fa-regular fa-user icon"></i>
                             </a>
                         </li>
                         <li class="icon-container" id="shopping_cart_alternative">
-                            <a href="#" class="d-flex justify-content-center align-items-center">
-                                <i class="fa-solid fa-cart-shopping icon"></i>
+                            <a href="#" class="d-flex align-items-center justify-content-center">
+                                <i class="fa-cart-shopping fa-solid icon"></i>
                             </a>
                             <sup class="cartlist_count">
                                 <h6><b><?php echo count($cartlist) ?></b></h6>
@@ -3005,8 +3010,7 @@
                                 <p class="letters" id="letter_0"><b>E</b></p>
                             </div>
                         </div>
-
-
+                  
                         <div class="wrap-btn">
                             <a href="#" class="btn" id="explore_btn"><span>SHOP NOW</span></a>
                         </div>
@@ -3015,9 +3019,8 @@
             </div>
 
 
-
             <!-- Feature Products -->
-            <div class="container mt-5 mb-5">
+            <div class="container mb-5 mt-5">
                 <h1 class="text-center">Feature Products</h1>
                 <div class="row">
                     <?php foreach($feature_product as $product) {  ?>
@@ -3027,7 +3030,7 @@
                    $image = "assets/images/" . $product['fp_image']; 
                   ?>
                             <img id="productImage" src="<?php echo base_url($image) ; ?>" class="card-img-top"
-                                alt="Product Image">
+                                alt="Product Image" >
 
                             <div class='card-body'>
                                 <?php $stars = 4;
@@ -3056,14 +3059,14 @@
 
                     <button id="play_btn">
                         <div class="play_inside_btn">
-                            <i class="fa-solid fa-play"></i>
+                            <i class="fa-play fa-solid"></i>
                         </div>
                     </button>
                 </a>
             </div>
 
             <!-- TESTIMONIALS -->
-            <div class="testimonials mt-5">
+            <div class="mt-5 testimonials">
                 <p class="text-center">TESTIMONIALS</p>
                 <h1 class="text-center" style="font:70px 'Rajdhani',sans-serif;"><b>Clients Feedback</b></h1>
                 <div class="">
@@ -3072,44 +3075,29 @@
                             <div id="customers-testimonials" class="owl-carousel">
 
                                 <!--TESTIMONIAL 1 -->
-                                <?php $dishes = [
-    [
-        "name" => "Chicken for two Roasted",
-        "description" => "There was a time when Chinese food in this country meant (Americanized) Cantonese food",
-        "amount" => 21
-    ],
-    [
-        "name" => "Beef Stir Fry",
-        "description" => "There was a time when Chinese food in this country meant (Americanized) Cantonese food",
-        "amount" => 18
-    ],
-    [
-        "name" => "Vegetable Spring Rolls",
-        "description" => "There was a time when Chinese food in this country meant (Americanized) Cantonese food",
-        "amount" => 10
-    ],
-    [
-        "name" => "Shrimp Fried Rice",
-        "description" => "There was a time when Chinese food in this country meant (Americanized) Cantonese food",
-        "amount" => 15
-    ],
-
-]; ?>
-                                <?php foreach($dishes as $dish) { ?>
+                                <?php foreach($testimonial as $test) { ?>
                                 <div class="test_item">
+                                    <?php $image = 'assets/images/'. $test['t_image'] ?>
                                     <div class="shadow-effect">
                                         <img class="img-responsive"
-                                            src="https://image.freepik.com/free-photo/spaghetti-with-carbonara-sauce_1216-324.jpg"
-                                            alt="">
+                                            src='<?php echo $image ?>'
+                                            alt=""     style="width:100%;height:300px;">
                                         <div class="item-details">
-                                            <h5><?php echo $dish['name'] ?> <span>$<?php echo $dish['amount'] ?></span>
+                                            <h5><?php echo $test['t_name'] ?> 
+                                            <?php if($test['t_rating'] != 0) { ?>
+                                             <span>
+                                             <?php for($i = 1; $i <= $test['t_rating']; $i++){ ?>
+                                             <i class="fa fa-star"></i>
+                                             <?php } ?>
+                                            </span>
+                                             <?php } ?>
                                             </h5>
-                                            <p><?php echo $dish['description'] ?></p>
+                                            <p><?php echo $test['t_others'] ?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <?php } ?>
-
+                      
                             </div>
                         </div>
                     </div>
@@ -3117,22 +3105,20 @@
             </div>
             <!-- END OF TESTIMONIALS -->
 
-
-
-
+            
             <!-- footer -->
             <div class="footer mt-5">
-                <div class="footer_insider row mt-5">
-                    <div class="brocolli col-lg-2 col-md-6">
+                <div class="row footer_insider mt-5">
+                    <div class="col-lg-2 col-md-6 brocolli">
                         <img src="assets/images/logo.png" alt="Logo" style="max-width: 100%; height: auto;">
                         <p class="mt-3">
                             Lorem Ipsum is simply dummy text of the and typesetting industry.Lorem Ipsum is dummy text
                             of the
                             printing.
                         </p>
-                        <p><i class="fa-solid fa-location-dot"></i> Brooklyn, New York, United States</p>
-                        <p><i class="fa-solid fa-phone"></i> +0123-456789</p>
-                        <p class="text-nowrap"><i class="fa-regular fa-envelope"></i> example@example.com</p>
+                        <p><i class="fa-location-dot fa-solid"></i> Brooklyn, New York, United States</p>
+                        <p><i class="fa-phone fa-solid"></i> +0123-456789</p>
+                        <p class="text-nowrap"><i class="fa-envelope fa-regular"></i> example@example.com</p>
                         <div class="d-flex gap-5">
                             <p><a href=""><b><i class="fa-brands fa-facebook-f"></i></b></a></p>
                             <p><a href=""><b><i class="fa-brands fa-x-twitter"></i></b></a></p>
@@ -3186,7 +3172,7 @@
                         </a>
                     </div>
                     <div class="col-lg-2 col-md-6">
-                        <h3 class="mx-4 text-nowrap"> Customer Care</h3>
+                        <h3 class="text-nowrap mx-4"> Customer Care</h3>
                         <a href="" class="mt-3">
                             <p class="slash">//</p>
                             <p>Order Tracking</p>
@@ -3213,7 +3199,7 @@
                         <p class="mt-3">Subscribe to our weekly Newsletter and receive updates via email.</p>
                         <form class="email_input" id="email_input" method="post">
                             <input type="text" id="email_input_box" placeholder="Email">
-                            <button type="submit" id="email_send_btn"><i class="fa-solid fa-paper-plane"></i></button>
+                            <button type="submit" id="email_send_btn"><i class="fa-paper-plane fa-solid"></i></button>
                         </form>
                         <span id="sub_err_msg"></span>
                         <span id="sub_succ_msg"></span>
@@ -3228,7 +3214,7 @@
 
             <!-- Terms and Conditions -->
             <div class="terms_conditions">
-                <div class="inside_t_c row">
+                <div class="row inside_t_c">
                     <div class="col-md-6 col-sm-12" id="left_tc">
                         <p>All Rights Reserved @ Company 2025</p>
                     </div>
@@ -3247,11 +3233,11 @@
             </div>
             <!-- Modal -->
             <!-- modal fade -->
-            <div class="modal fade example" style="margin-top:200px;" id="exampleModal" tabindex="-1"
+            <div class="modal example fade" style="margin-top:200px;" id="exampleModal" tabindex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="wishlist_model row  text-center mt-4 mb-5">
+                        <div class="row text-center mb-5 mt-4 wishlist_model">
                             <div class="col-md-4">
                                 <img src="assets/images/7.png" style="width:150px; height:140px;"
                                     alt="Vegetable Juices">
@@ -3264,10 +3250,10 @@
                                 <p><strong></strong>
                                 </p>
 
-                                <p><i class="fa-solid fa-circle-check"></i> Successfully added to your Wishlist</p>
+                                <p><i class="fa-circle-check fa-solid"></i> Successfully added to your Wishlist</p>
 
 
-                                <button class="view_whislist btn" id="explore_btn"><span>View Wishlist</span></button>
+                                <button class="btn view_whislist" id="explore_btn"><span>View Wishlist</span></button>
                             </div>
 
 
@@ -3303,7 +3289,7 @@
 
                                 <p><?php echo $wish['wl_name'] ?></p>
                                 <p><?php echo count($whishlist);  ?> X <?php echo $wish['wl_price'] ?></p>
-                                <p><i class="fa-solid fa-minus"></i> count <i class="fa-solid fa-plus"></i> </p>
+                                <p><i class="fa-minus fa-solid"></i> count <i class="fa-plus fa-solid"></i> </p>
                             </div>
                         </div>
                         <?php } ?>
@@ -3313,9 +3299,9 @@
                         <p></p>
                     </div>
                     <div class="cart_buttons">
-                        <a href="<?php echo base_url('view_cart_page') ?>"> <button class="cart_btn btn"
+                        <a href="<?php echo base_url('view_cart_page') ?>"> <button class="btn cart_btn"
                                 id="explore_btn"><span><b>View Cart</b></span></button></a>
-                        <button class="cart_btn btn " id="explore_btn"><span><b>Check Out</b></span></button>
+                        <button class="btn cart_btn" id="explore_btn"><span><b>Check Out</b></span></button>
                     </div>
 
                     <p class="cart_footer">Free Shipping on All Orders Over $100 !</p>
@@ -3354,7 +3340,7 @@
 
             <!-- Sidebar -->
             <div class="sidebar" id="sidebar">
-                <div class="mt-5 d-flex justify-content-center border-bottom">
+                <div class="d-flex border-bottom justify-content-center mt-5">
                     <ul class="brand-image mb-3 mb-md-0">
                         <li><img src="assets/images/logo.png" alt="Logo" style="max-width: 100%; height: auto;"></li>
                     </ul>
@@ -3405,6 +3391,10 @@
                 $('#tab_5').removeClass('d-none');
 
             });
+            $('#tab_5').click(function(e){
+               e.preventDefault();
+               $('#tab_5').removeClass('d-none');
+            });
             </script>
             <script>
             document.addEventListener('DOMContentLoaded', () => {
@@ -3442,15 +3432,18 @@
                 loop: true,
                 margin: 10,
                 autoplay: true,
-                // nav: true,
+                nav: true,
                 responsive: {
                     0: {
                         items: 1
                     },
-                    600: {
-                        items: 3
+                   650: {
+                        items: 1
+                    }, 
+                    768: {
+                        items: 1
                     },
-                    1000: {
+                    1200: {
                         items: 4
                     }
                 }
@@ -3479,10 +3472,13 @@
                     0: {
                         items: 1
                     },
-                    600: {
-                        items: 3
+                   650: {
+                        items: 1
+                    }, 
+                    768: {
+                        items: 1
                     },
-                    1000: {
+                    1200: {
                         items: 4
                     }
                 }
@@ -3519,10 +3515,13 @@
                     0: {
                         items: 1
                     },
-                    600: {
-                        items: 3
+                   650: {
+                        items: 1
+                    }, 
+                    768: {
+                        items: 1
                     },
-                    1000: {
+                    1200: {
                         items: 4
                     }
                 }
@@ -3550,10 +3549,13 @@
                     0: {
                         items: 1
                     },
-                    600: {
-                        items: 3
+                   650: {
+                        items: 1
+                    }, 
+                    768: {
+                        items: 1
                     },
-                    1000: {
+                    1200: {
                         items: 4
                     }
                 }
@@ -3581,10 +3583,13 @@
                     0: {
                         items: 1
                     },
-                    600: {
-                        items: 3
+                   650: {
+                        items: 1
+                    }, 
+                    768: {
+                        items: 1
                     },
-                    1000: {
+                    1200: {
                         items: 4
                     }
                 }
@@ -3643,7 +3648,6 @@
                 document.getElementById('circular_counts').classList.remove('d-none');
 
 
-
                 if (distance < 0) {
                     clearInterval(countdownfunction);
                     document.getElementById("days").innerText = "00";
@@ -3653,12 +3657,10 @@
                     document.getElementById('circular_counts').classList.add('d-none');
                     document.getElementById('circular_counts_alternative').classList.remove('d-none');
 
-
-                    console.log("Countdown finished!");
+                    // console.log("Countdown finished!");
                 }
             }, 1000);
             </script>
-
 
 
             <script>
@@ -3681,7 +3683,7 @@
                         document.getElementById(letterId).classList.add('animate');
                     });
 
-
+            
                     index = (index + 1) % words.length;
 
                     setTimeout(showNextWord, 2000);
@@ -3689,9 +3691,9 @@
 
                 showNextWord();
             }
+        
 
-
-            window.onload = displayWords;
+            window.onload = displayWords();
             </script>
 
             <script>
@@ -3701,7 +3703,10 @@
                 width: 800,
                 height: 450
             });
+
+
             </script>
+
             <script>
             $('#customers-testimonials').owlCarousel({
                 loop: true,
@@ -3816,17 +3821,17 @@
                 $('.modal-content').empty();
                 if (cartData.ct_name && cartData.ct_image) {
                     $('.modal-content').append(
-                        '<div class="wishlist_model row text-center mt-4 mb-5">' +
+                        '<div class="row text-center mb-5 mt-4 wishlist_model">' +
                         '<div class="col-md-4">' +
                         '<img src="assets/images/' + cartData.ct_image +
                         '" style="width:150px; height:140px;" alt="' + cartData.ct_name + '">' +
                         '</div>' +
                         '<div class="col-md-6">' +
                         '<p><strong>' + cartData.ct_name + '</strong></p>' +
-                        '<p><i class="fa-solid fa-circle-check"></i> Successfully added to your Cart</p>' +
+                        '<p><i class="fa-circle-check fa-solid"></i> Successfully added to your Cart</p>' +
                         '<div class="d-flex gap-2">' +
-                        '<button class="cart_btn btn" id="explore_btn" onclick="viewCart()"><span class="text-nowrap"><b>View Cart</b></span></button>' +
-                        '<button  class="cart_btn btn" id="explore_btn"><b><span>CheckOut</span></b></button>' +
+                        '<button class="btn cart_btn" id="explore_btn" onclick="viewCart()"><span class="text-nowrap"><b>View Cart</b></span></button>' +
+                        '<button  class="btn cart_btn" id="explore_btn"><b><span>CheckOut</span></b></button>' +
                         '</div>' +
                         '</div>' +
                         '<div class="col-md-2 text-end">' +
@@ -3863,7 +3868,7 @@
                             $('.cart_body').append(
                                 '<img src="assets/images/cart_empty.png" style="width:300px; height:250px;" alt="image">'
                             );
-                            $('.sub_total p:last').html('<i class="fa-solid fa-indian-rupee-sign"></i>0');
+                            $('.sub_total p:last').html('<i class="fa-indian-rupee-sign fa-solid"></i>0');
                             return;
                         }
 
@@ -3876,11 +3881,11 @@
                             <div>
                                 <input value="${cart.ct_id}" name="wl_id[]" class="wl_ids" hidden>
                                 <p>${cart.ct_name}</p>
-                                <p><i class="fa-solid fa-indian-rupee-sign"></i>${cart.ct_price}</p>
+                                <p><i class="fa-indian-rupee-sign fa-solid"></i>${cart.ct_price}</p>
                                 <p>
-                                    <button class="reduce btn" onclick="reducefunction(${cart.ct_id})"><i class="fa-solid fa-trash"></i></button> 
+                                    <button class="btn reduce" onclick="reducefunction(${cart.ct_id})"><i class="fa-solid fa-trash"></i></button> 
                                     ${cart.ct_quantity} 
-                                    <button class="increase btn" onclick="increasefunction(${cart.ct_id})"><i class="fa-solid fa-plus"></i></button> 
+                                    <button class="btn increase" onclick="increasefunction(${cart.ct_id})"><i class="fa-plus fa-solid"></i></button> 
                                 </p>
                             </div>
                         </div>
@@ -3893,11 +3898,11 @@
                             <div>
                                 <input value="${cart.ct_id}" name="wl_id[]" class="wl_ids" hidden>
                                 <p>${cart.ct_name}</p>
-                                <p><i class="fa-solid fa-indian-rupee-sign"></i>${cart.ct_price}</p>
+                                <p><i class="fa-indian-rupee-sign fa-solid"></i>${cart.ct_price}</p>
                                 <p>
-                                    <button class="reduce btn" onclick="reducefunction(${cart.ct_id})"><i class="fa-solid fa-minus"></i></button> 
+                                    <button class="btn reduce" onclick="reducefunction(${cart.ct_id})"><i class="fa-minus fa-solid"></i></button> 
                                     ${cart.ct_quantity} 
-                                    <button class="increase btn" onclick="increasefunction(${cart.ct_id})"><i class="fa-solid fa-plus"></i></button> 
+                                    <button class="btn increase" onclick="increasefunction(${cart.ct_id})"><i class="fa-plus fa-solid"></i></button> 
                                 </p>
                             </div>
                         </div>
@@ -3919,13 +3924,13 @@
 
 
                                     buttonContainer.append(`
-                <button class="red btn"  onclick="reduce_function_alter(${cart.ct_id})"> 
+                <button class="btn red"  onclick="reduce_function_alter(${cart.ct_id})"> 
                                         <i class="fa-solid fa-trash"></i>      
                                 </button>
-                             <h1 class="count_btn_alter btn mt-2" id="quant-${cart.ct_id}"><b>${cart.ct_quantity}</b></h1>
+                             <h1 class="btn count_btn_alter mt-2" id="quant-${cart.ct_id}"><b>${cart.ct_quantity}</b></h1>
                           
-                                <button class="inc btn"  onclick="increase_function_alter(${cart.ct_id})"> 
-                                        <i class="fa-solid fa-plus"></i>      
+                                <button class="btn inc"  onclick="increase_function_alter(${cart.ct_id})"> 
+                                        <i class="fa-plus fa-solid"></i>      
                                 </button>
                             
                                `);
@@ -3938,13 +3943,13 @@
                                         'space-between');
 
                                     $('#add_btn_' + cart.ct_id).append(`
-                <button class="red btn"  onclick="reduce_function_alter(${cart.ct_id})"> 
-                               <i class="fa-solid fa-minus"></i>      
+                <button class="btn red"  onclick="reduce_function_alter(${cart.ct_id})"> 
+                               <i class="fa-minus fa-solid"></i>      
                                 </button>   
-                             <h1 class="count_btn_alter btn mt-2"><b>${cart.ct_quantity}</b></h1>
+                             <h1 class="btn count_btn_alter mt-2"><b>${cart.ct_quantity}</b></h1>
                           
-                                <button class="inc btn"  onclick="increase_function_alter(${cart.ct_id})"> 
-                                        <i class="fa-solid fa-plus"></i>      
+                                <button class="btn inc"  onclick="increase_function_alter(${cart.ct_id})"> 
+                                        <i class="fa-plus fa-solid"></i>      
                                 </button>
                             
                                `);
@@ -3957,7 +3962,7 @@
 
 
                         $('.sub_total p:last').html(
-                            `<i class="fa-solid fa-indian-rupee-sign"></i>${data.subtotal}`);
+                            `<i class="fa-indian-rupee-sign fa-solid"></i>${data.subtotal}`);
 
                     },
                     error: function(xhr, status, error) {
@@ -3991,7 +3996,7 @@
                                 $('#count_' + response.details.p_id).css('display', 'flex');
 
                                 $('#add_btn_' + response.ct_id).append(`
-         <button class="count_btn btn btn-primary" id="count_${response.details.p_id}"  onclick="mybtn(${response.details.p_id})">Add</button>
+         <button class="btn btn-primary count_btn" id="count_${response.details.p_id}"  onclick="mybtn(${response.details.p_id})">Add</button>
                             
                                `);
                                 delete_cart(response.ct_id);
@@ -4120,7 +4125,7 @@
                                 $('#count_' + response.details.p_id).css('display', 'flex');
 
                                 $('#add_btn_' + response.ct_id).append(`
-         <button class="count_btn btn btn-primary" id="count_${response.details.p_id}"  onclick="mybtn(${response.details.p_id})">Add</button>
+         <button class="btn btn-primary count_btn" id="count_${response.details.p_id}"  onclick="mybtn(${response.details.p_id})">Add</button>
                             
                                `);
                                 updateCart();
@@ -4246,21 +4251,21 @@
                     const cartId = cart ? cart.ct_id : null;
 
                     $('.modal-content').append(`
-            <div class="wishlist_model row text-center mt-4 mb-5">
+            <div class="row text-center mb-5 mt-4 wishlist_model">
                 <div class="col-md-4">
                     <img src="assets/images/${viewData.p_image}" style="width:300px; height:300px;" alt="${viewData.p_name}">
                 </div>
                 <div class="col-md-6">
                     <p><strong>${viewData.p_name}</strong></p>
-                    <p><strong><i class="fa-solid fa-indian-rupee-sign"></i> ${viewData.p_price}</strong></p>
+                    <p><strong><i class="fa-indian-rupee-sign fa-solid"></i> ${viewData.p_price}</strong></p>
                 
                     <div style="display:flex;justify-content:center;flex-direction:column">
-                       <a href="<?php echo base_url('view_cart_page') ?>"> <button class="cart_btn btn"
+                       <a href="<?php echo base_url('view_cart_page') ?>"> <button class="btn cart_btn"
                                 id="explore_btn"><span><b>View Cart</b></span></button></a>
                                 <div class="add_to_whist">
                                <button type="button" style="background:none;"
                                          onclick ="whislistmodel(${viewData.p_id})"  mx-5" id="whist">
-                                            <i class="fa-solid fa-heart mt-3"></i><p class=" mx-2 mt-3">Add To Whislist</p></button>
+                                            <i class="fa-heart fa-solid mt-3"></i><p class="mt-3 mx-2">Add To Whislist</p></button>
                                             </div>
                                             </div>
                 </div>
@@ -4349,15 +4354,15 @@
                 $('.modal-content').empty();
 
                 $('.modal-content').append(
-                    '<div class="wishlist_model row text-center mt-4 mb-5">' +
+                    '<div class="row text-center mb-5 mt-4 wishlist_model">' +
                     '<div class="col-md-4">' +
                     '<img src="assets/images/' + product.p_image +
                     '" style="width:150px; height:140px;" alt="' + product.p_name + '">' +
                     '</div>' +
                     '<div class="col-md-6">' +
                     '<p><strong>' + product.p_name + '</strong></p>' +
-                    '<p><i class="fa-solid fa-circle-check"></i> Successfully added to your Wishlist</p>' +
-                    '<button class="view_whislist btn" id="explore_btn"><span>View Wishlist</span></button>' +
+                    '<p><i class="fa-circle-check fa-solid"></i> Successfully added to your Wishlist</p>' +
+                    '<button class="btn view_whislist" id="explore_btn"><span>View Wishlist</span></button>' +
                     '</div>' +
                     '<div class="col-md-2 text-end">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
@@ -4376,15 +4381,15 @@
                 $('.modal-content').empty();
 
                 $('.modal-content').append(
-                    '<div class="wishlist_model row text-center mt-4 mb-5">' +
+                    '<div class="row text-center mb-5 mt-4 wishlist_model">' +
                     '<div class="col-md-12 text-end">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
                     '</div>' +
                     '<div class="col-md-12">' +
-                    '<p><i style="color:red" class="fa-solid fa-circle-xmark"></i> <b>Sorry, this item is already added to your Wishlist</b></p>' +
+                    '<p><i style="color:red" class="fa-circle-xmark fa-solid"></i> <b>Sorry, this item is already added to your Wishlist</b></p>' +
                     '</div>' +
                     '<div class="col-md-12 text-center">' +
-                    '<button class="view_whislist btn" id="explore_btn"><span>View Wishlist</span></button>' +
+                    '<button class="btn view_whislist" id="explore_btn"><span>View Wishlist</span></button>' +
                     '</div>' +
                     '</div>'
                 );
@@ -4397,19 +4402,18 @@
                 $('.modal-content').empty();
 
                 $('.modal-content').append(
-                    '<div class="wishlist_model row text-center mt-4 mb-5">' +
+                    '<div class="row text-center mb-5 mt-4 wishlist_model">' +
                     '<div class="col-md-12 text-end">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
                     '</div>' +
                     '<div class="col-md-12">' +
-                    '<p><i style="color:red" class="fa-solid fa-circle-xmark"></i> <b>Sorry, this item is already added to your Wishlist</b></p>' +
+                    '<p><i style="color:red" class="fa-circle-xmark fa-solid"></i> <b>Sorry, this item is already added to your Wishlist</b></p>' +
                     '</div>' +
                     '<div class="col-md-12 text-center">' +
-                    '<button class="view_whislist btn" id="explore_btn"><span>View Wishlist</span></button>' +
+                    '<button class="btn view_whislist" id="explore_btn"><span>View Wishlist</span></button>' +
                     '</div>' +
                     '</div>'
                 );
-
 
                 // $('#exampleModal').modal('show');
             }
@@ -4425,15 +4429,15 @@
                 $('.modal-content').empty();
 
                 $('.modal-content').append(
-                    '<div class="wishlist_model row text-center mt-4 mb-5">' +
+                    '<div class="row text-center mb-5 mt-4 wishlist_model">' +
                     '<div class="col-md-4">' +
                     '<img src="assets/images/' + product.p_image +
                     '" style="width:150px; height:140px;" alt="' + product.p_name + '">' +
                     '</div>' +
                     '<div class="col-md-6">' +
                     '<p><strong>' + product.p_name + '</strong></p>' +
-                    '<p><i class="fa-solid fa-circle-check"></i> Successfully added to your Wishlist</p>' +
-                    '<button class="view_whislist btn" id="explore_btn"><span>View Wishlist</span></button>' +
+                    '<p><i class="fa-circle-check fa-solid"></i> Successfully added to your Wishlist</p>' +
+                    '<button class="btn view_whislist" id="explore_btn"><span>View Wishlist</span></button>' +
                     '</div>' +
                     '<div class="col-md-2 text-end">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
@@ -4473,17 +4477,17 @@
                 $('.modal-content').empty();
 
                 $('.modal-content').append(
-                    '<div class="account_cont ">' +
-                    '<div class="text-end ">' +
+                    '<div class="account_cont">' +
+                    '<div class="text-end">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
                     '</div>' +
                     '<div class="account mb-5 mt-3">' +
                     '<div class="d-flex flex-column">' +
                     '<div class="">' +
-                    '<button class="cart_btn btn" id="explore_btn" onclick="login_website()"><span class="text-nowrap"><b>Login</b></span></button>' +
+                    '<button class="btn cart_btn" id="explore_btn" onclick="login_website()"><span class="text-nowrap"><b>Login</b></span></button>' +
                     '</div>' +
                     '<div class="">' +
-                    '<button  class="cart_btn btn" id="explore_btn" onclick="create_account_page()"><b><span>SignUp</span></b></button>' +
+                    '<button  class="btn cart_btn" id="explore_btn" onclick="create_account_page()"><b><span>SignUp</span></b></button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -4502,17 +4506,17 @@
                 $('.modal-content').empty();
 
                 $('.modal-content').append(
-                    '<div class="account_cont ">' +
-                    '<div class="text-end ">' +
+                    '<div class="account_cont">' +
+                    '<div class="text-end">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
                     '</div>' +
                     '<div class="account mb-5 mt-3">' +
                     '<div class="d-flex flex-column">' +
                     '<div class="">' +
-                    '<button class="cart_btn btn" id="explore_btn" onclick="login_website()"><span class="text-nowrap"><b>Login</b></span></button>' +
+                    '<button class="btn cart_btn" id="explore_btn" onclick="login_website()"><span class="text-nowrap"><b>Login</b></span></button>' +
                     '</div>' +
                     '<div class="">' +
-                    '<button  class="cart_btn btn" id="explore_btn" onclick="create_account_page()"><b><span>SignUp</span></b></button>' +
+                    '<button  class="btn cart_btn" id="explore_btn" onclick="create_account_page()"><b><span>SignUp</span></b></button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -4525,9 +4529,23 @@
 
 
             function login_website() {
-                window.location.href =
-                    "<?php echo base_url('login_website'); ?>";
+                
+                $.ajax({
+                    url:"<?php echo base_url('login_website'); ?>",
+        
+                    success: function (response) {
+                        if (response == 1){
+                            window.location.href =
+                            "<?php echo base_url('login_page'); ?>";
+                        } else { 
+                        //    please_login();     
+                        }
+                    }
+                });
+            
             }
+
+        
 
             function create_account_page() {
                 window.location.href =
@@ -4607,8 +4625,11 @@
                         $('#user_list').hide();
                     }
                 });
+
             });
             </script>
+
+
             <script>
             $('.count_btn').on('click', function() {
                 var id = $(this).data('id');
@@ -4620,14 +4641,13 @@
                     },
                     dataType: "json",
                     success: function(response) {
-                        if (response.status == 1) {
+                       if (response.status == 1) { 
                             updateCart();
-
+                        } else {
+                            account();
                         }
                     }
                 });
-
-
 
             });
             </script>
@@ -4645,16 +4665,12 @@
                         if (response.status == 1) {
                             updateCart();
                             $('.model-content .add_btn_cart').empty();
-
-
-                        }
+                        } 
                     }
                 });
-
             }
             </script>
-
-
+          
 </body>
 
 </html>

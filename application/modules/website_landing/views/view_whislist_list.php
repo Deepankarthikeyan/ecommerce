@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wishlist</title>
+    <link rel="icon" href="<?php echo base_url('assets/images/leaf_logo.png') ?>" type="image/png"> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -322,7 +323,6 @@
 
             whis.forEach(item => {
                 const image_path = 'assets/images/' + item.wl_image;
-
                 const col = $(`
                 <div class="col-md-3 mb-4"> 
                     <div class="card">
@@ -361,17 +361,25 @@
             },
             dataType: "json",
             success: function(response) {
-                if(response.status == 1){
+                if(response.status == 1) {
                     updateCart();
                     updatemodel(response.our_product);
                 }
-                else{
+                else {
                     updateerrormodel(response.our_product);
                 }
                 
             }
         });
+    } 
+
+    function numbertowords($number) {
+       $ones = ['','one','two','three','four','five','six','seven','eight','nine'];
+       $tens = ['ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen',];
+       $hundreds = ['twenty','thirty','fourty','fifty','sixty','seventy','eighty','ninety'];
+       $thousands = [];
     }
+
 
     function updatemodel(product) {
         $('.modal-content').empty();
@@ -397,9 +405,10 @@
 
     }
 
-    function view_cart_page(){
+    function view_cart_page() {
         window.location.href = "<?php echo base_url('view_cart_page'); ?>"; 
-    }
+    } 
+
     </script>
 
     <script>
@@ -422,12 +431,15 @@
             '</div>' +
             '</div>'
         );
-
         $('#exampleModal').modal('show');
+
 
     }
 
+
     </script>
+
+
 </body>
 
 </html>

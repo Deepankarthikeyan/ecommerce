@@ -65,6 +65,15 @@
 .table th {
     background-color: #f2f2f2;
 }
+
+.search {
+    width: 100%;
+    border: 2px solid grey;
+    padding: 6px;
+    padding-left: 15px;
+    outline: none;
+    border-radius: 10px;
+}
 </style>
 
 <body>
@@ -84,6 +93,21 @@
                 <?php echo $this->session->flashdata('coupon_err'); ?>
             </div>
             <?php } ?>
+            <?php
+            $search = isset($_GET['search']) ? $_GET['search'] : '';
+             ?>
+             <?php $coup = []; ?>
+             <?php foreach($coupon as $cop) { ?>
+                <?php $coup[] = $cop['cp_id'] ?>
+                <?php } ?>
+
+                <div class="mt-2 mb-4 d-flex">
+                    <input type="text" class="search" name="search" id="search" value="<?php echo $search ?>"
+                    placeholder="Please search here">
+           
+                </div>
+ 
+
             <thead>
                 <tr>
                     <th class="text-center col">Coupon Name</th>
@@ -92,16 +116,16 @@
                     <th class="text-center col">Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="tbody">
                 <?php foreach($coupon as $coupon) { ?>
                 <tr>
                     <td class="text-center "><?php echo $coupon['cp_name']?></td>
                     <td class="text-center"><?php echo $coupon['cp_price']?></td>
                     <td class="text-center"><?php echo $coupon['cp_details']?></td>
 
-                    <td class="text-center">
+                    <td class="text-center" id="buts">
                         <a href="<?php echo base_url("view_coupon_details/{$coupon['cp_id']}") ?>"
-                            class="btn btn-primary mt-2"><i class="fa-solid fa-eye"></i></a>    
+                            class="btn btn-primary mt-2"><i class="fa-solid fa-eye"></i></a>
                         <a href="<?php echo base_url("delete_coupon/{$coupon['cp_id']}") ?>" id="delete"
                             class="btn btn-danger mx-3 mt-2"><i class="fa-solid fa-trash"></i></a>
                     </td>
@@ -138,10 +162,105 @@
     $("#category").change(function() {
         $("#category_options").click();
     });
-
-    $(".table").DataTable();
     </script>
 
-</body>
+<!-- <script>
 
+    
+    $('.search').on('keyup',function(){
+        var search = $('#search').val();
+        console.log(search);
+        $.ajax({
+            type: "get",    
+            url: "<?php echo base_url('coupon_list') ?>",
+            data: {
+                search : search
+            },
+            dataType: "json",
+            success: function (response) {
+                $('.tbody').empty();
+                if(response.coupon && response.coupon.length > 0){
+                    $.each(response.coupon, function(index,cop) {
+                $('.tbody').append(`
+                     <tr>
+                    <td class="text-center">${cop.cp_name}</td>
+                    <td class="text-center">${cop.cp_price}</td>
+                    <td class="text-center">${cop.cp_details}</td>
+                     <td class="text-center">
+                        <a href="<?php echo base_url("view_coupon_details/") ?>${cop.cp_id}" 
+                            class="btn btn-primary mt-2"><i class="fa-solid fa-eye"></i></a>
+                        <a href="<?php echo base_url("delete_coupon/") ?>${cop.cp_id}" id="delete"
+                            class="btn btn-danger mx-3 mt-2"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+                `);
+            });
+                } else{
+                       $('.tbody').append(`
+                       <tr>
+                       <td colspan="4"><h1 class="text-center">No Data Found</h1></td>
+                       </tr>
+                    
+                       `);
+                }
+     
+           
+            }
+        });
+    })
+</script> -->
+
+
+<script>
+    $(document).ready(function() {
+        // Function to fetch coupons based on search input
+        function fetchCoupons(search) {
+            $.ajax({
+                type: "get",
+                url: "<?php echo base_url('coupon_list') ?>",
+                data: {
+                    search: search // Send the current input value
+                },
+                dataType: "json",
+                success: function(response) {
+                    console.log(search.length);
+                    $('.tbody').empty();
+                    if (response.coupon && response.coupon.length > 0) {
+
+                        $.each(response.coupon, function(index, cop) {
+                            $('.tbody').append(`
+                                <tr>
+                                    <td class="text-center">${cop.cp_name}</td>
+                                    <td class="text-center">${cop.cp_price}</td>
+                                    <td class="text-center">${cop.cp_details}</td>
+                                    <td class="text-center">
+                                        <a href="<?php echo base_url("view_coupon_details/") ?>${cop.cp_id}" 
+                                            class="btn btn-primary mt-2"><i class="fa-solid fa-eye"></i></a>
+                                        <a href="<?php echo base_url("delete_coupon/") ?>${cop.cp_id}" id="delete"
+                                            class="btn btn-danger mx-3 mt-2"><i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                    } else {
+                        $('.tbody').append(`
+                            <tr>
+                                <td colspan="4"><h1 class="text-center">No Data Found</h1></td>
+                            </tr>
+                        `);
+                    }
+                },
+            });
+        }
+
+        $('#search').on('input', function() {
+            var search = $(this).val(); 
+            fetchCoupons(search); 
+        });
+
+        fetchCoupons(''); 
+});
+</script>
+</body>
 </html>
+

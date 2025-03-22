@@ -173,4 +173,54 @@ public function delete_coupon_data($coupon_id){
   $this->db->where('cp_id',$coupon_id);
   return $this->db->delete('coupon_list');
 }
+
+public function get_searched_coupon_data($items){
+  $this->db->select("*");
+  $this->db->from('coupon_list');
+  $this->db->group_start();
+  $this->db->like('cp_name', $items); 
+  $this->db->or_like('cp_price', $items); 
+  $this->db->or_like('cp_details', $items); 
+  $this->db->group_end();
+  $query = $this->db->get(); 
+  return $query->result_array(); 
+}
+
+public function get_product_viewed_list(){
+  $this->db->select('*');
+  $this->db->from('product_viewed_list');
+ $query =  $this->db->get();
+ return $query->result_array();
+}
+
+public function get_product_add_cart_list(){
+  $this->db->select('*');
+  $this->db->from('product_add_cart_list');
+ $query =  $this->db->get();
+ return $query->result_array();
+}
+
+public function get_notification_list(){
+  $this->db->select('*');
+  $this->db->from('notification');
+ $query =  $this->db->get();
+ return $query->result_array();
+}
+
+public function update_activity($data){
+  $this->db->where('not_activity',0);
+  return $this->db->update('notification',$data);
+}
+
+public function get_not_act(){
+  $this->db->select('*');
+  $this->db->from('notification');
+  $this->db->where('not_activity',0);
+ $query =  $this->db->get();
+ return $query->result_array();
+}
+
+public function insert_notification($data){
+  return $this->db->insert('notification',$data);
+}
 }

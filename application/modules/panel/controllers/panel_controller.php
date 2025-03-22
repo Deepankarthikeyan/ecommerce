@@ -137,9 +137,40 @@ class panel_controller extends MY_Controller {
     }
 }
 
-public function dasboard(){
-	$this->load->view('dashboard.php');
+
+public function dasboard() {
+    $product_viewed = $this->panel_model->get_product_viewed_list();
+    $product_add_cart = $this->panel_model->get_product_add_cart_list();
+    $view_count = count($product_viewed);
+    $add_count = count($product_add_cart);
+
+    function formatviewcount($view_count) { 
+        if ($view_count >= 1000000) {
+            return number_format($view_count / 1000000, 1) . 'M'; 
+        } else if ($view_count >= 1000) {
+            return number_format($view_count / 1000, 1) . 'k';
+        } else {
+            return (string)$view_count;
+        }
+    }
+	function formataddcount($add_count){
+		if ($add_count >= 1000000) {
+            return number_format($add_count / 1000000, 1) . 'M'; 
+        } else if ($add_count >= 1000) {
+            return number_format($add_count / 1000, 1) . 'k';
+        } else {
+            return (string)$add_count;
+        }
+	}
+
+    $data['view_count'] = formatviewcount($view_count);
+    $data['add_count'] = formataddcount($add_count);
+	$data2['notify'] =$this->panel_model->get_notification_list();
+    $this->load->view('sidebar', $data2);
+    $this->load->view('dashboard.php', $data);
 }
+
+
 
 public function logout(){
 	$this->session->sess_destroy();
@@ -148,10 +179,10 @@ public function logout(){
 
 public function change_password_page() {
 
-    // $data['get_user'] = $this->panel_model->get_user_by_email($email);
-    $this->load->view('dashboard');
+	$data2['notify'] =$this->panel_model->get_notification_list();
+ 
+    $this->load->view('sidebar', $data2);
     $this->load->view('change_password_page');
-	// print_r($email);
 }
 
 public function header(){
@@ -159,7 +190,8 @@ public function header(){
 }
 
 public function sidebar(){
-	$this->load->view('sidebar.php');
+	$data2['notify'] = $this->panel_model->get_notification_list();
+    $this->load->view('sidebar', $data2);
 }
 
 public function change_password(){	
@@ -189,7 +221,8 @@ if($get_user != ''){
 
 public function our_product_page(){
 	$data['get_our_products'] = $this->panel_model->get_our_products();
-		$this->load->view('dashboard');
+	$data2['notify'] =$this->panel_model->get_notification_list();
+    $this->load->view('sidebar', $data2);
 		$this->load->view('our_products_page.php', $data);
 }
 
@@ -225,6 +258,7 @@ public function our_product(){
 			'p_others' => $p_others
         );      
 
+
         $product_insert = $this->panel_model->insert_our_product_details($data);
         if($product_insert){
             echo 2;    
@@ -236,6 +270,7 @@ public function our_product(){
     }
 }
 
+
 public function our_product_List(){
 
 	$query = $this->input->get('query'); 
@@ -243,6 +278,7 @@ public function our_product_List(){
 	$category = $this->input->get('category');
 
 	if ($query) {
+
         $data['results'] = $this->panel_model->search($query); 
 		
     } else if($category) {
@@ -250,16 +286,21 @@ public function our_product_List(){
         $data['results'] = $this->panel_model->options($category); 
 
 	} else {
+		
   	$data['results'] = $this->panel_model->get_our_products();
+
     }
-		$this->load->view('dashboard');
+
+	$data2['notify'] =$this->panel_model->get_notification_list();
+    $this->load->view('sidebar', $data2);
 	$this->load->view('our_product_List',$data);
 }
 
 public function view_our_product_list($product_id){
 	$data['product'] = $this->panel_model->get_product_details($product_id);
 	$data['feature_product'] = $this->panel_model->get_feature_product_details($product_id);
-	$this->load->view('dashboard');
+	$data2['notify'] =$this->panel_model->get_notification_list();
+    $this->load->view('sidebar', $data2);
 	$this->load->view("view_our_product",$data);
 }
 
@@ -287,7 +328,9 @@ if($p_name != '' && $p_category != '' && $p_price != ''){
 		echo 1; 
 		return; 
 	} 
+
 }
+
 
 	$data = array(
 		'p_name' => $p_name,
@@ -315,12 +358,12 @@ if($delete_product){
 } else{
 	$this->session->set_flashdata('product_err', 'Product Not Deleted.');
 	redirect($_SERVER['HTTP_REFERER']);
-
 }
 }
 
 public function feature_product_page(){
-	$this->load->view('dashboard');
+	$data2['notify'] =$this->panel_model->get_notification_list();
+    $this->load->view('sidebar', $data2);
 	$this->load->view('feature_products');
 }
 
@@ -337,7 +380,7 @@ public function feature_product(){
         $config['max_size'] = 2048; 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);    
-
+    
         if ($this->upload->do_upload('fp_image')) {
             $data = $this->upload->data();
             $filename = $data['file_name'];
@@ -346,7 +389,7 @@ public function feature_product(){
             return; 
         } 
 	}
-
+          if($filename != '') {
         $data = array(
 			'fp_ref_id'=> "FP" . mt_rand(0000,1111),
             'fp_name' => $fp_name,
@@ -360,6 +403,9 @@ public function feature_product(){
         } else {
             echo 3; 
         }
+	}else{
+		echo 5;
+	}
     } else {
         echo 4; 
     }
@@ -368,7 +414,8 @@ public function feature_product(){
 
 public function feature_product_list(){
 	$data['results'] = $this->panel_model->get_feature_product();
-	$this->load->view('dashboard');
+	$data2['notify'] =$this->panel_model->get_notification_list();
+    $this->load->view('sidebar', $data2);
 	$this->load->view("feature_product_list.php", $data);
 }
 
@@ -386,7 +433,8 @@ if($delete_product){
 
 public function feature_product_details($product_id){
 	$data['feature_product'] = $this->panel_model->get_feature_product_details($product_id);
-	$this->load->view('dashboard');
+	$data2['notify'] =$this->panel_model->get_notification_list();
+    $this->load->view('sidebar', $data2);
 	$this->load->view("view_feature_product",$data);
 }
 
@@ -415,27 +463,28 @@ public function edit_feature_product() {
             } 
         }
 
-        // Prepare data for update
+	
         $data = array(
             'fp_name' => $fp_name,
             'fp_price' => $fp_price,
-            'fp_image' => $filename // Use the new filename or the old one
+            'fp_image' => $filename 
         );      
 
-        // Update the feature product
+       
         $edit_product = $this->panel_model->edit_feature_product_details($data, $product_id);
         if ($edit_product) {
-            echo 2; // Update successful
+            echo 2; 
         } else {
-            echo 3; // Update failed
+            echo 3; 
         }
     } else {
-        echo 4; // Validation failed
+        echo 4; 
     }
 }
 
 public function Testimonial_page(){
-	$this->load->view('dashboard');
+	$data2['notify'] =$this->panel_model->get_notification_list();
+    $this->load->view('sidebar', $data2);
 	$this->load->view('testimonial_form');
 }
 
@@ -443,6 +492,7 @@ public function insert_testimonial(){
 
     $t_name = $this->input->post('t_name');
     $t_others = $this->input->post('t_others');
+	$t_rating = $this->input->post('t_rating');
     $filename = ''; 
 
     if($t_name != '' && $t_others != '') {
@@ -465,7 +515,8 @@ public function insert_testimonial(){
         $data = array(
             't_name' => $t_name,
             't_image' => $filename,
-			't_others' => $t_others
+			't_others' => $t_others,
+			't_rating' => $t_rating
         );      
 
         $test_insert = $this->panel_model->insert_testimonials_data($data);
@@ -478,10 +529,12 @@ public function insert_testimonial(){
         echo 4; 
     }
 }
+ 
 
 public function Testimonial_list(){
 	$data['test'] = $this->panel_model->get_testimonials_list();
-	$this->load->view('dashboard');
+	$data2['notify'] =$this->panel_model->get_notification_list();
+    $this->load->view('sidebar', $data2);
 	$this->load->view('testimonials_list',$data);
 }
 
@@ -499,15 +552,19 @@ public function delete_testimonial($test_id){
 
 	public function view_testimonial_details($test_id){
 	$data['test'] = $this->panel_model->get_testimonials_details_by_id($test_id);
-	$this->load->view('dashboard');
+	$data2['notify'] =$this->panel_model->get_notification_list();
+	$this->load->view('sidebar',$data2);
 		$this->load->view('view_testimonial_details',$data);
 	}
+
+     
 
 	public function update_testimonial() {
 		$test_id = $this->input->post('t_id');
 		$test_details = $this->panel_model->get_testimonials_details_by_id($test_id);
 		$old_image = $test_details['t_image'];
 		$t_name = $this->input->post('t_name');
+		$t_rating = $this->input->post('t_rating');
 		$t_others = $this->input->post('t_others');
 		$filename = $old_image; 
 	
@@ -526,14 +583,18 @@ public function delete_testimonial($test_id){
 					echo 1; 
 					return; 
 				}
-			}
+			} 
 	
+
 			$data = array(
 				't_name' => $t_name,
 				't_image' => $filename,
-				't_others' => $t_others
+				't_others' => $t_others,
+			    't_rating' => $t_rating
+
 			);      
 	
+
 			$test_insert = $this->panel_model->update_testimonials_data($test_id, $data);
 			if ($test_insert) {
 				echo 2; 
@@ -545,8 +606,10 @@ public function delete_testimonial($test_id){
 		}
 	}
 
+
 	public function coupon_form(){
-	$this->load->view('dashboard');
+		$data2['notify'] =$this->panel_model->get_notification_list();
+		$this->load->view('sidebar', $data2);
 		$this->load->view('coupon_form.php');
 	}
 
@@ -560,36 +623,54 @@ public function delete_testimonial($test_id){
 	
 			$data = array(
 				'cp_name' => $cp_name,
-				'cp_details' => $cp_details,
+				'cp_details' => $cp_details, 
 				'cp_price' => $cp_price,
 				'cp_min_price' => $cp_min_price
 			);      
 	
 			$coupon_insert = $this->panel_model->insert_coupon_data($data);
-			if($coupon_insert){
+			if($coupon_insert) {
 				echo 2;    
 			} else {
 				echo 3; 
 			}
 		} else {
-			echo 4; 
+		 	echo 4;
 		}
 	}
 
-	public function coupon_list(){
-		$data['coupon'] = $this->panel_model->get_coupon_data();
-	$this->load->view('dashboard');
-		$this->load->view('coupon_list.php',$data);
+
+
+	public function coupon_list() {
+		$items = $this->input->get('search');
+		if($items){
+		$response['coupon'] = $this->panel_model->get_searched_coupon_data($items);
+		$coup = []; 
+		$coupon = $response['coupon'];
+		 foreach($coupon as $cop) {
+		    $coup[] = $cop['cp_id'];
+		    } 
+			$response['coup'] = $coup;
+		echo json_encode($response);
+	      
+		} else {
+			$data['coupon'] = $this->panel_model->get_coupon_data();
+			$data2['notify'] =$this->panel_model->get_notification_list();
+			$this->load->view('sidebar', $data2);
+			$this->load->view('coupon_list.php',$data); 
+		}
 	}
 
-	public function view_coupon_details($coupon_id){
-	$this->load->view('dashboard');
+
+	public function view_coupon_details($coupon_id) {
+		$data2['notify'] =$this->panel_model->get_notification_list();
+		$this->load->view('sidebar', $data2);
 		$data['coupon'] = $this->panel_model->get_coupon_data_by_id($coupon_id);
 		$this->load->view('view_coupon_details',$data);
 	}
 
 
-	public function delete_coupon($coupon_id){
+	public function delete_coupon($coupon_id) {
 		$delete = $this->panel_model->delete_coupon_data($coupon_id);
 		if($delete){
 			$this->session->set_flashdata('coupon_succ', 'Coupon Deleted Successfully.');
@@ -597,11 +678,12 @@ public function delete_testimonial($test_id){
 		} else{
 			$this->session->set_flashdata('coupon_err', 'Coupon Not Deleted.');
 			redirect($_SERVER['HTTP_REFERER']);
-		
 		}
 	}
 
-	public function update_coupon(){
+
+
+	public function update_coupon() {
 		$cp_id = $this->input->post('cp_id');
 		$cp_name = $this->input->post('cp_name');
 		$cp_details = $this->input->post('cp_details');
@@ -612,17 +694,53 @@ public function delete_testimonial($test_id){
 			$data = array(
 				'cp_name' => $cp_name,
 				'cp_details' => $cp_details,
-				'cp_price' => $cp_price
+				'cp_price' => $cp_price	
 			);      
-	
+	        
 			$coupon_insert = $this->panel_model->update_coupon_data($data,$cp_id);
-			if($coupon_insert){
-				echo 2;    
+			if($coupon_insert) {
+				echo 2;     
 			} else {
 				echo 3; 
 			}
 		} else {
-			echo 4; 
+			echo 4;  
 		}
 	}
+
+
+	public function update_notify_activity(){
+		// $get_not_act = $this->panel_model->get_not_act();
+		$response['notification']  = 0;
+		$data = array(
+			'not_activity' => 1
+		);
+		$update = $this->panel_model->update_activity($data);
+		$notify = $this->panel_model->get_notification_list();
+			$notification = [];
+	foreach($notify as $not) { 
+   $response['notification'] = $not['not_activity']; 
+	 } 
+
+	 $response['status'] = 1;
+	 header('Content-Type: application/json');
+		echo json_encode($response);
+
+	}
+
+	
+
+	public function get_notification_active_or_not(){
+		$notify = $this->panel_model->get_notification_list();
+// 		$notification = [];
+// foreach($notify as $not) { 
+// $response['notification'] = $not['not_activity']; 
+//  } 
+$response['notification'] = $this->panel_model->get_notification_list();
+
+ $response['status'] = 1;
+ header('Content-Type: application/json');
+ echo json_encode($response);
+	}
+
 }

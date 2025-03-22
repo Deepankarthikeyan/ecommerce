@@ -50,7 +50,9 @@ class Landing_controller extends MY_Controller {
 		$data['feature_product'] = $this->website_model->get_feature_products();
 		$data['cartlist'] = $this->website_model->get_cart_list_by_id($userid);
 		$data['whislist'] = $this->website_model->get_all_whislist($userid);
-	 
+		$data['testimonial'] = $this->website_model->get_testimonial_datas();
+	  
+		// print_r($data['testimonial']);
 
 		$this->load->view('Landing_page.php', $data);
 
@@ -77,6 +79,14 @@ class Landing_controller extends MY_Controller {
 			"ct_price" => $our_product['p_price'],   
 			"ct_quantity" => 1 
 		);
+		
+		$insert_data = array(
+			'p_ins_ref_id' => 'pv_' .mt_rand(0000,1111),
+			'p_ins_userid' => $userid,
+			'p_id' => $our_product['p_id'],
+			'p_name' => $our_product['p_name']
+		  );
+		  $inserted = $this->website_model->insert_product_cart_user_data($insert_data);
 		
 
 		$existing_item = $this->website_model->get_cart_item_by_id($cart_id);
@@ -106,7 +116,6 @@ class Landing_controller extends MY_Controller {
 			
 			if ($insert) {
 				$insert_item = $this->website_model->get_cart_item_by_id($cart_id);
-			
 				$response['status'] = 1; 
 				$response['cart'] = $insert_item;
 				$response['prod'] = $item_details;
@@ -235,6 +244,7 @@ class Landing_controller extends MY_Controller {
 
 	public function get_product_detail(){
 		ob_start();
+		$userid = $this->session->userdata("web_user_ref_id");
 		$cart_id = $this->input->post('id');
         $item_details = $this->website_model->get_product_details($cart_id);
 		$cart = $this->website_model->get_cart_item_by_id($cart_id);
@@ -244,6 +254,14 @@ class Landing_controller extends MY_Controller {
 			$response['status'] = 1; 
 			$response['details'] = $item_details; 
 			$response['cart'] = $cart; 
+			$data = array(
+              'p_v_ref_id' => 'pv_' .mt_rand(0000,1111),
+			  'p_v_userid' => $userid,
+			  'p_id' => $cart_id,
+			  'p_name' => $item_details['p_name']
+			);
+			$insert = $this->website_model->insert_product_viewed_user_data($data);
+
 		} else {
 			$response['status'] = 2;
 		}
@@ -254,6 +272,7 @@ class Landing_controller extends MY_Controller {
 
 	public function add_to_cart() {
 		ob_start();
+		$userid = $this->session->userdata("web_user_ref_id");
 		$cart_id = $this->input->post('cartId');
 		$our_product = $this->website_model->get_product_details($cart_id);
 		$cart = $this->website_model->get_cart_item_by_id($cart_id);
@@ -269,6 +288,7 @@ class Landing_controller extends MY_Controller {
 			);
 	
 			$insert = $this->website_model->insert_cart_items($data);
+		
 			if ($insert) {
 				$cart = $this->website_model->get_cart_item_by_id($cart_id);
 				$response['status'] = 1;
@@ -398,7 +418,6 @@ class Landing_controller extends MY_Controller {
 		$response['whislist'] = $this->website_model->get_all_whislist($userid);
 		header('Content-Type:application/json');
 		echo json_encode($response);
-
 	}
 
     public function search_whislist() {
@@ -411,7 +430,7 @@ class Landing_controller extends MY_Controller {
         header('Content-Type:application/json');
         echo json_encode($response);
     }
-
+	
 	public function add_cart_and_delete_whis(){
 		$userid = $this->session->userdata('web_user_ref_id');
 		$cart_id = $this->input->post('id');
@@ -457,6 +476,20 @@ class Landing_controller extends MY_Controller {
 	}
 
 	public function login_website(){
+		$userid = $this->session->userdata('web_user_ref_id');
+		if($userid == ''){
+			// $this->load->view('login_page');
+			echo 1;
+		} else{
+			echo 2;
+			// redirect($_SERVER['HTTP_REFERER']);
+			// '<script>alert("please logout")</script>';
+
+		}
+	
+	}
+
+	public function login_page() {
 		$this->load->view('login_page');
 	}
 
@@ -487,6 +520,7 @@ class Landing_controller extends MY_Controller {
 		} else if (preg_match('/^\d+$/', $emailOrNumber)) {
 			$user = $this->website_model->get_user_by_phone($emailOrNumber);
 		}
+        
 	
 		if ($user) {
 			if (password_verify($password, $user['web_user_password'])) { 
@@ -527,10 +561,10 @@ class Landing_controller extends MY_Controller {
 				}
 			} else {
                  
-				// if(!(is_nan($emailOrNumber))){
+				// if(!(is_nan($emailOrNumber))) {
 					
 				// }
-				
+	
 				$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 	
 				$data = [
@@ -560,18 +594,21 @@ class Landing_controller extends MY_Controller {
 	
 	public function create_account_page(){
 		$this->load->view('signup_page');
-
 	}
+
+
 	public function logout(){
 		$this->session->sess_destroy();
 		redirect('website');
 	}
 	
+
 	public function send_email_to_subscribe(){
 		$this->load->library('form_validation');
 		$mailid = $this->input->post('mailid');
 		$get_mail_details = $this->website_model->get_same_mailid($mailid);
         $old_mail = $get_mail_details['sub_email'];
+
 		if($mailid != ''){
 			$this->form_validation->set_rules('mailid', 'Mailid', 'required|valid_email');
 			if ($this->form_validation->run() == FALSE) {
@@ -584,18 +621,18 @@ class Landing_controller extends MY_Controller {
                 'sub_email' => $mailid
 			   );
 			   
-			   if ($mailid != $old_mail){
+			   if ($mailid != $old_mail) {
 			   $insert_mail = $this->website_model->insert_subscribed_mailid($data);
-                 if($insert_mail){
+                 if($insert_mail) {
 					echo 2;
-				 } else{
+				 } else {
 					echo 3;
 				 }
 				} else {
 					echo 4;
 				}
 			}
-		} else{
+		} else {
 			echo 5;
 		}
 		
@@ -611,7 +648,7 @@ class Landing_controller extends MY_Controller {
 			$coupon_list = $this->website_model->get_coupon_list();
 	
 			if ($old_datas == '') { 
-				$data = array(
+				$data = array (
 					'applied_ref_id' => 'APP_' . mt_rand(0000, 1111),
 					'applied_user_id' => $userid,
 					'applied_coupon_id' => $cp_id,
@@ -629,6 +666,7 @@ class Landing_controller extends MY_Controller {
 						$subtotal += $cart['ct_quantity'] * $cart['ct_price']; 
 						$item_total = $cart['ct_quantity'] * $cart['ct_price'];
 					}
+			
 					$old = $this->website_model->coupon_applied_list($cp_id, $userid);
 			        $old_price = $old['applied_coupon_price'];
 					$response = [
@@ -636,8 +674,8 @@ class Landing_controller extends MY_Controller {
 						'subtotal' => $subtotal,
 						'item_total' => $item_total,
 						'count' => count($data['cartlist']),
-						 'dis_price' => $old_price,
-						 'old' => $old,
+						'dis_price' => $old_price,
+						'old' => $old,
 					];
 					$response['apply'] = $this->website_model->applied_coupon_list();
 					$response['status'] = 1;
@@ -652,13 +690,15 @@ class Landing_controller extends MY_Controller {
 		} else {
 			$response['status'] = 0; 
 		}
-	
+
+
 		header('Content-Type:application/json');
 		echo json_encode($response);
 	}
 
 
-	public function remove_coupon_by_id(){
+
+	public function remove_coupon_by_id() {
 		$userid = $this->session->userdata('web_user_ref_id');
 		$ref_id = $this->input->post('ref_id');
 		$data['cartlist'] = $this->website_model->get_cart_list_by_id($userid);
@@ -668,27 +708,61 @@ class Landing_controller extends MY_Controller {
 			$subtotal += $cart['ct_quantity'] * $cart['ct_price']; 
 			$item_total = $cart['ct_quantity'] * $cart['ct_price'];
 		}
+               
 	    $delete = $this->website_model->delete_coupon_by_id($ref_id);
 		if($delete){
 			echo 1;
-		} else{
+		} else {
 			echo 2;
 		}
 	}
 
 
-	public function get_applied_list(){
+
+	public function get_applied_list() {
 		ob_start();
 		$userid = $this->session->userdata('web_user_ref_id');
 		$response['applied'] = $this->website_model->applied_coupon_list_id($userid);
 		ob_end_clean();
 		header('Content-Type:application/json');
 		echo json_encode($response);
-		// print_r($response);
-
 	}
 
-	public function get_min_coupon_price(){
+
+
+	public function get_coupon_list_by_name(){
+      ob_start();
+	  $userid = $this->session->userdata('web_user_ref_id');
+	  $cop = $this->input->get('cop');
+	  if($cop != ''){
+	  $data['cartlist'] = $this->website_model->get_cart_list_by_id($userid);
+
+					$subtotal = 0;
+					$item_total = 0;
+					foreach ($data['cartlist'] as $cart) {
+						$subtotal += $cart['ct_quantity'] * $cart['ct_price']; 
+						$item_total = $cart['ct_quantity'] * $cart['ct_price'];
+					}
+					$response = [
+						'cartlist' => $data['cartlist'],
+						'subtotal' => $subtotal,
+						'item_total' => $item_total,
+						'count' => count($data['cartlist']),
+					];
+					$response['status'] = 1;
+	  $response['applied'] = $this->website_model->applied_coupon_list_id($userid);
+	  $response['cop'] = $this->website_model->get_coupon_by_name($cop);
+				} else if($cop == ''){
+					$response['status'] = 2;
+				} else{
+					$response['status'] = 3;
+				}
+	  ob_end_clean();
+	  header('Content-Type:application/json');
+	  echo json_encode($response);
 
 	}
+ 	   
+
+
 }

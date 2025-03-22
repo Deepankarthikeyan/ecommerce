@@ -91,6 +91,7 @@
 $selected_category = isset($_GET['category']) ? $_GET['category'] : '';
 ?>  
 
+
 <form action="<?php echo base_url("our_product_List") ?>" method="get" class="w-100">
     <select name="category" id="category" class="form-control mb-2">
         <option value="" hidden>Select a category</option>
@@ -200,6 +201,7 @@ $selected_category = isset($_GET['category']) ? $_GET['category'] : '';
     "pagingType": "full_numbers" 
 });
     </script>
+
 
 </body>
 
